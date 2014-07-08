@@ -1,71 +1,479 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Spectro Coin Merchant API by SpectoFinance</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Spectro Coin Merchant API : " />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Spectro Coin Merchant API</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Spectro Coin Merchant API</h1>
-        <p></p>
 
-        <p class="view"><a href="https://github.com/SpectoFinance/SpectroCoin-Merchant-API">View the Project on GitHub <small>SpectoFinance/SpectroCoin-Merchant-API</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API">View on GitHub</a>
 
+          <h1 id="project_title">Spectro Coin Merchant API</h1>
+          <h2 id="project_tagline"></h2>
 
-        <ul>
-          <li><a href="https://github.com/SpectoFinance/SpectroCoin-Merchant-API/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/SpectoFinance/SpectroCoin-Merchant-API/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/SpectoFinance/SpectroCoin-Merchant-API">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="spectrocoin-merchant-api" class="anchor" href="#spectrocoin-merchant-api"><span class="octicon octicon-link"></span></a>SpectroCoin Merchant API</h1>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<p>This document describes <a href="https://spectrocoin.com">Spectro Coin</a> merchat service API specification.</p>
+
+<h1>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h1>
+
+<ul>
+<li>Must have a SpectroCoin account (<a href="https://spectrocoin.com/en/signup.html">Sign Up!</a>) to setup and test API. For merchant API usage in production you must approve your account.</li>
+<li>Must <a href="README.md#merchant-keypair">generate</a> private and public key pairs.</li>
+</ul><h1>
+<a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h1>
+
+<p><a href="https://spectrocoin.com/api/">Interactive and exact SpectroCoin merchant API operation list</a>.
+<a href="https://spectrocoin.com/api/merchant/1/">Root Merchant REST based API address</a></p>
+
+<h2>
+<a name="error-result" class="anchor" href="#error-result"><span class="octicon octicon-link"></span></a>Error result</h2>
+
+<p>When calling any of API operation, it may result and error.
+Errors should be returned as <strong>JSON</strong> format on <strong>203</strong> http status code.</p>
+
+<div class="highlight highlight-json"><pre><span class="p">[</span>
+      <span class="p">{</span>
+      <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"apiId is required"</span>
+   <span class="p">},</span>
+      <span class="p">{</span>
+      <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"merchantId is required"</span>
+   <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+<table>
+<thead><tr>
+<th>Error code</th>
+<th>Error message</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Validation errors</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bad signature</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Not supported currency</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Can't create order, please check your merchant account</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Merchant order id exist</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Check your merchantId and apiId</td>
+</tr>
+<tr>
+<td>97</td>
+<td>Unsupported Media Type</td>
+</tr>
+<tr>
+<td>99</td>
+<td>Please check your request</td>
+</tr>
+<tr>
+<td>100</td>
+<td>Unexpected error</td>
+</tr>
+</tbody>
+</table><h2>
+<a name="createorder" class="anchor" href="#createorder"><span class="octicon octicon-link"></span></a>/createOrder</h2>
+
+<p>Merchant who wants his customer order to be paid creates order at Spectro Coin with payment details and presents result to his customer. Merchant can also redirect his customer to returned redirect url where customer will be presented with interactive payment window.</p>
+
+<h3>
+<a name="request" class="anchor" href="#request"><span class="octicon octicon-link"></span></a>Request</h3>
+
+<p>Request URL: <a href="https://spectrocoin.com/api/merchant/1/createOrder">https://spectrocoin.com/api/merchant/1/createOrder</a>
+For this method server accept only <strong>POST</strong> of <strong>"application/x-www-form-urlencoded"</strong> media type.</p>
+
+<table>
+<thead><tr>
+<th>Seq No.</th>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1.</td>
+<td>merchantId</td>
+<td>Long</td>
+<td>+</td>
+<td>12345</td>
+</tr>
+<tr>
+<td>2.</td>
+<td>apiId</td>
+<td>Long</td>
+<td>+</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3.</td>
+<td>orderId</td>
+<td>String</td>
+<td>-</td>
+<td>ABC001, Must be unique for all merchant API orders. If not provided, order request id will be assigned</td>
+</tr>
+<tr>
+<td>4.</td>
+<td>payCurrency</td>
+<td>String</td>
+<td>+</td>
+<td>BTC</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>payAmount</td>
+<td>Double</td>
+<td>+ or receiveAmount</td>
+<td>123.45, 1.23456789 (BTC)</td>
+</tr>
+<tr>
+<td>6.</td>
+<td>receiveAmount</td>
+<td>Double</td>
+<td>+ or payAmount</td>
+<td>123.45, 1.23456789 (BTC)</td>
+</tr>
+<tr>
+<td>7.</td>
+<td>description</td>
+<td>String</td>
+<td>-</td>
+<td>Order ABC001 for User 123</td>
+</tr>
+<tr>
+<td>8.</td>
+<td>culture</td>
+<td>String</td>
+<td>-</td>
+<td>Language for response ("en", "lt", "ru", "de")</td>
+</tr>
+<tr>
+<td>9.</td>
+<td>callbackUrl</td>
+<td>String</td>
+<td>-</td>
+<td><a href="https://merchant.com/orderCallback?user=123">https://merchant.com/orderCallback?user=123</a></td>
+</tr>
+<tr>
+<td>10.</td>
+<td>successUrl</td>
+<td>String</td>
+<td>-</td>
+<td><a href="https://merchant.com/success?user=123">https://merchant.com/success?user=123</a></td>
+</tr>
+<tr>
+<td>11.</td>
+<td>failureUrl</td>
+<td>String</td>
+<td>-</td>
+<td><a href="https://merchant.com/failure?user=123">https://merchant.com/failure?user=123</a></td>
+</tr>
+<tr>
+<td>12.</td>
+<td>sign</td>
+<td>String</td>
+<td>+</td>
+<td>Generated order request signature</td>
+</tr>
+</tbody>
+</table><div class="highlight highlight-http"><pre><span class="err">https://spectrocoin.com/api/merchant/1/createOrder?merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Description&amp;callbackUrl=http://testas.lt/api/check&amp;successUrl=&amp;failureUrl=&amp;sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT/vn+0KjY7f9tdYQjk67XTFY+n1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH/objevHiOGkV9+jTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA+HNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c+/uCAq+oafTRV9+d9meTRbC+FTDf/AMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy/tS6fb8MiFBnOw==</span>
+</pre></div>
+
+<h3>
+<a name="response" class="anchor" href="#response"><span class="octicon octicon-link"></span></a>Response</h3>
+
+<p><strong>JSON</strong> formatted response of complex object <code>Order</code>.</p>
+
+<table>
+<thead><tr>
+<th>Field</th>
+<th>Type</th>
+<th>Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>orderRequestId</td>
+<td>Long</td>
+<td>Order request id, Spectro Coin Id to track orders</td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>String</td>
+<td>ABC001</td>
+</tr>
+<tr>
+<td>payCurrency</td>
+<td>String</td>
+<td>BTC</td>
+</tr>
+<tr>
+<td>payAmount</td>
+<td>Double</td>
+<td>123.45, 1.23456789 (BTC)</td>
+</tr>
+<tr>
+<td>receiveCurrency</td>
+<td>String</td>
+<td>BTC</td>
+</tr>
+<tr>
+<td>receiveAmount</td>
+<td>Double</td>
+<td>123.45, 1.23456789 (BTC)</td>
+</tr>
+<tr>
+<td>depositAddress</td>
+<td>String</td>
+<td>1HZcE7ZbwnEKHYcKkva1uZoxZbFvRyK3fm</td>
+</tr>
+<tr>
+<td>redirectUrl</td>
+<td>String</td>
+<td><a href="https://spectrocoin.com/en/pay/order/18-5fD2HgMK.html">https://spectrocoin.com/en/pay/order/18-5fD2HgMK.html</a></td>
+</tr>
+<tr>
+<td>validUntil</td>
+<td>Long</td>
+<td>Timestamp (how many milliseconds have passed since January 1, 1970, 00:00:00 GMT) until order is valid.</td>
+</tr>
+</tbody>
+</table><div class="highlight highlight-json"><pre><span class="p">{</span>
+<span class="nt">"depositAddress"</span><span class="p">:</span><span class="s2">"1HZcE7ZbwnEKHYcKkva1uZoxZbFvRyK3fm"</span><span class="p">,</span>
+<span class="nt">"orderId"</span><span class="p">:</span><span class="s2">"18"</span><span class="p">,</span>
+<span class="nt">"orderRequestId"</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span>
+<span class="nt">"payAmount"</span><span class="p">:</span><span class="mf">0.00246995</span><span class="p">,</span>
+<span class="nt">"payCurrency"</span><span class="p">:</span><span class="s2">"BTC"</span><span class="p">,</span>
+<span class="nt">"receiveAmount"</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="nt">"receiveCurrency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span>
+<span class="nt">"redirectUrl"</span><span class="p">:</span><span class="s2">"https://spectrocoin.com/en/pay/order/18-5fD2HgMK.html"</span><span class="p">,</span>
+<span class="nt">"validUntil"</span><span class="p">:</span><span class="mi">1401191587663</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="callback" class="anchor" href="#callback"><span class="octicon octicon-link"></span></a>Callback</h3>
+
+<p><strong>POST</strong> request to merchant provided order callback url. Request provides information about current order status. Usually there will be several callbacks for a successful order (pending, paid).
+Merchant page must return HTTP Response 200 with content: "<strong><em>ok</em></strong>" for Spectro Coin API to confirm callback as sent successfully.</p>
+
+<p>Complex object <code>OrderCallback</code>.</p>
+
+<table>
+<thead><tr>
+<th>Seq No.</th>
+<th>Field</th>
+<th>Type</th>
+<th>Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1.</td>
+<td>merchantId</td>
+<td>Long</td>
+<td>12345</td>
+</tr>
+<tr>
+<td>2.</td>
+<td>apiId</td>
+<td>Long</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3.</td>
+<td>orderId</td>
+<td>String</td>
+<td>ABC001</td>
+</tr>
+<tr>
+<td>4.</td>
+<td>payCurrency</td>
+<td>String</td>
+<td>BTC</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>payAmount</td>
+<td>Double</td>
+<td>123.45, 1.23456789 (BTC)</td>
+</tr>
+<tr>
+<td>6.</td>
+<td>receiveCurrency</td>
+<td>String</td>
+<td>BTC, EUR</td>
+</tr>
+<tr>
+<td>7.</td>
+<td>receiveAmount</td>
+<td>Double</td>
+<td>123.45, 1.23456789 (BTC)</td>
+</tr>
+<tr>
+<td>8.</td>
+<td>receivedAmount</td>
+<td>Double</td>
+<td>123.45, 1.23456789 (BTC)</td>
+</tr>
+<tr>
+<td>9.</td>
+<td>description</td>
+<td>String</td>
+<td>Order ABC001 for User 123</td>
+</tr>
+<tr>
+<td>10.</td>
+<td>orderRequestId</td>
+<td>Long</td>
+<td>Order request id, Spectro Coin Id to track orders</td>
+</tr>
+<tr>
+<td>11.</td>
+<td>status</td>
+<td>Short</td>
+<td>Order status</td>
+</tr>
+<tr>
+<td>12.</td>
+<td>sign</td>
+<td>String</td>
+<td>Generated order callback signature</td>
+</tr>
+</tbody>
+</table><h1>
+<a name="merchant-keypair" class="anchor" href="#merchant-keypair"><span class="octicon octicon-link"></span></a>Merchant keypair</h1>
+
+<p>You should create keypair (private and public keys) (<a href="http://en.wikipedia.org/wiki/Public-key_cryptography">Wiki</a>) for your requests to be signed and validated by Spectro Coin.
+<strong>Private key</strong> must be kept safely by merchant without any disclosure.
+<strong>Public key</strong> must be inserted into configuration of specific Spectro Coin API (Create/Edit form of API details). This key will be used to check signature validity of any merchant API request signed by specific merchant and API.</p>
+
+<h2>
+<a name="generate-with-openssl" class="anchor" href="#generate-with-openssl"><span class="octicon octicon-link"></span></a>Generate with OpenSSL</h2>
+
+<h3>
+<a name="private-key-generation" class="anchor" href="#private-key-generation"><span class="octicon octicon-link"></span></a>Private key generation</h3>
+
+<pre lang="shell"><code># generate a 2048-bit RSA private key
+openssl genrsa -out "C:\private.pem" 2048
+
+# convert private Key to PKCS#8 format (if you use Java)
+openssl pkcs8 -topk8 -inform PEM -outform DER -in "C:\private.pem" -out "C:\private.der" -nocrypt
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h3>
+<a name="public-key-generation" class="anchor" href="#public-key-generation"><span class="octicon octicon-link"></span></a>Public key generation</h3>
+
+<pre lang="shell"><code># output public key portion in PEM format
+openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
+</code></pre>
+
+<h1>
+<a name="signature" class="anchor" href="#signature"><span class="octicon octicon-link"></span></a>Signature</h1>
+
+<p>All API requests must be signed with merchant private key so they can be validated with merchant public key (provided in API configuration). Some API request may result in callback from Spectro Coin, such request are also signed by Spectro Coin and must be validated by merchant using Spectro Coin public key.</p>
+
+<h2>
+<a name="signing" class="anchor" href="#signing"><span class="octicon octicon-link"></span></a>Signing</h2>
+
+<p>Request to be signed must be converted to <strong>UTF-8 URL encoded concatinated parameters</strong> of one string line with parameter name and in specific order specified in documentation.
+Singature must be <strong>Base64 encoded</strong>.</p>
+
+<p>Example URL encoded concatinated parameters</p>
+
+<pre><code>merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Some+string+with+symbols+%25%3D%26&amp;callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck
+</code></pre>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="java-signing-using-sample-application" class="anchor" href="#java-signing-using-sample-application"><span class="octicon octicon-link"></span></a>Java signing (using sample application)</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<div class="highlight highlight-java"><pre><span class="n">String</span> <span class="n">formValue</span> <span class="o">=</span> <span class="s">"merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Some+string+with+symbols+%25%3D%26&amp;callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">orderSign</span> <span class="o">=</span> <span class="n">SignUtil</span><span class="o">.</span><span class="na">sign</span><span class="o">(</span><span class="n">formValue</span><span class="o">,</span> <span class="n">path_to_private_key</span><span class="o">);</span>
+</pre></div>
 
 <h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a name="php-signing" class="anchor" href="#php-signing"><span class="octicon octicon-link"></span></a>PHP signing</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<div class="highlight highlight-php"><pre><span class="nv">$data</span> <span class="o">=</span> <span class="s2">"merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Some+string+with+symbols+%25%3D%26&amp;callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck"</span><span class="p">;</span>
+<span class="c1">// fetch private key from file and ready it</span>
+<span class="nv">$private_pem_key</span> <span class="o">=</span> <span class="nb">openssl_pkey_get_private</span><span class="p">(</span><span class="nv">$path_to_private_key</span><span class="p">);</span>
+<span class="c1">// compute signature</span>
+<span class="nb">openssl_sign</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nv">$signature</span><span class="p">,</span> <span class="nv">$private_pem_key</span><span class="p">,</span> <span class="nx">OPENSSL_ALGO_SHA1</span><span class="p">);</span>
+<span class="nv">$encodedSignature</span> <span class="o">=</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$signature</span><span class="p">);</span>
+</pre></div>
+
+<h2>
+<a name="validating-callbacks" class="anchor" href="#validating-callbacks"><span class="octicon octicon-link"></span></a>Validating callbacks</h2>
+
+<p>Requests comming from Spectro Coin to merchant pages are also signed. Merchant must validate signature of the request.
+Request signature to be validated must be <strong>Base64 decoded</strong>.
+Request must be converted to <strong>UTF-8 URL encoded concatinated parameters</strong> of one string line with parameter name and in specific order specified in documentation.</p>
 
 <h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<a name="java-validation-using-sample-application" class="anchor" href="#java-validation-using-sample-application"><span class="octicon octicon-link"></span></a>Java validation (using sample application)</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<div class="highlight highlight-java"><pre><span class="n">String</span> <span class="n">parameters</span> <span class="o">=</span> <span class="s">"merchantId=25&amp;apiId=25&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=25.0&amp;receiveCurrency=EUR&amp;receiveAmount=245.0&amp;description=Some+sting+with+symbols+%25%3D%26&amp;orderRequestId=11&amp;status=1"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">responseSign</span> <span class="o">=</span> <span class="s">"qGy2ablxcWtoGVAS2YufkYVWT0jLSilaUtMkz6Z8P6Mn6qInewEfK5Bsn4BFRxg1suENJJF8LJGyJV6vZt3XLmAHoTJwRjWLij2FROdFthuVt/U4Ima6uFm6hkjseeNLvJtdLFYWSAyKkt7wpeLPA2QUspQbG0asOhwd8EeP+mZDSfvOwTv2OFvGWcVEPR6DOWKEaw5wW6ilM8yZKowQzhrqoCUyJN4pxK02PLTKGIb6YDu1nESrN6ebp7ugskYwcmynLWNOY8Tu1bdg0fWBF2uCgJkWpc9yy2UYbtpVO7sCjIe+dmojJzqCwS5/7Ny04Mf+ouj6oEchxHfUq7VpaA=="</span><span class="o">;</span>
+<span class="kt">boolean</span> <span class="n">callbackSign</span> <span class="o">=</span> <span class="n">CheckSignUtil</span><span class="o">.</span><span class="na">checkSign</span><span class="o">(</span><span class="n">parameters</span><span class="o">,</span> <span class="n">responseSign</span><span class="o">,</span> <span class="n">path_to_public_spectro_coin_key</span><span class="o">);</span>
+</pre></div>
+
+<h3>
+<a name="php-validation" class="anchor" href="#php-validation"><span class="octicon octicon-link"></span></a>PHP validation</h3>
+
+<div class="highlight highlight-php"><pre><span class="nv">$data</span> <span class="o">=</span> <span class="s2">"merchantId=25&amp;apiId=25&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=25.0&amp;receiveCurrency=EUR&amp;receiveAmount=245.0&amp;description=Some+sting+with+symbols+%25%3D%26&amp;orderRequestId=11&amp;status=1"</span><span class="p">;</span>
+<span class="nv">$encodedSignature</span> <span class="o">=</span> <span class="s2">"QKpoaBL/P2tcFttFm/TVcn0utkgaOzEAOsZbSSOa+zntcxyJUijaM5egewRoRu68d4CoswTpkdOqaKdGrLWPNqQGujPHIX3q8Q0lK/C8GqN7MYHFrLxu+rpY0G4srIaDzXww4uOTkBIBFWn3TVI4AZAGm0/APlZZeCrhwIIkImYc8ab69zeqikyaMXRK0XMAD/8Fz9b+rUR342hMjFR+epZnNmWQpFtQLvB/SxlCZIZ+u1k2WLJYa7CChDePmdXNHgutvt1mQxLMpJmeDNjD2aOzF9+DPIqsOEkJ9RLJ8F0kQXnn9W02Av/a3GMVC7A/u/kxnKo3LRfkkkAAYkCKug=="</span>
+<span class="nv">$public_key_pem</span> <span class="o">=</span> <span class="nb">openssl_pkey_get_public</span><span class="p">(</span><span class="nv">$path_to_public_spectro_coin_key</span><span class="p">);</span>
+<span class="nv">$responseDecodedSign</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$encodedSignature</span><span class="p">);</span>
+<span class="nv">$validity</span> <span class="o">=</span> <span class="nb">openssl_verify</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nv">$responseDecodedSign</span><span class="p">,</span> <span class="nv">$public_key_pem</span><span class="p">,</span> <span class="nx">OPENSSL_ALGO_SHA1</span><span class="p">);</span>
+</pre></div>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/SpectoFinance">SpectoFinance</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Spectro Coin Merchant API maintained by <a href="https://github.com/SpectroFinance">SpectroFinance</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
     
+
   </body>
 </html>
