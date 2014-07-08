@@ -4,11 +4,11 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchat service 
 
 # Contents
 
-* Requirements
-* API
-* Merchant keypair
-* Signature
-* Example applications
+* [Requirements](README.md#requirements)
+* [API](README.md#api)
+* [Merchant keypair](README.md#merchant-keypair)
+* [Signature](README.md#signature)
+* [Example applications](README.md#example-applications)
 
 # Requirements
 
@@ -153,6 +153,18 @@ Status Code | Order status | Description
 5 | Expired | Payment was not received in time
 6 | Test | Test order
 
+Example HTTP request:
+
+```http
+POST https://merchant.com/callback HTTP/1.1
+Accept-Encoding: gzip,deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 578
+Host: merchant.com
+Connection: Keep-Alive
+
+merchantId=169&apiId=1&orderId=Order%20123&payCurrency=BTC&payAmount=1.23456789&receiveCurrency=EUR&receiveAmount=50.0&receivedAmount=0.0&description=My%20special%20order&orderRequestId=123&status=1&sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT%2Fvn%2B0KjY7f9tdYQjk67XTFY%2Bn1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH%2FobjevHiOGkV9%2BjTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA%2BHNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c%2B%2FuCAq%2BoafTRV9%2Bd9meTRbC%2BFTDf%2FAMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy%2FtS6fb8MiFBnOw%3D%3D
+```
 
 # Merchant keypair
 
