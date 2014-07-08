@@ -37,6 +37,15 @@
 <p>This document describes <a href="https://spectrocoin.com">Spectro Coin</a> merchat service API specification.</p>
 
 <h1>
+<a name="contents" class="anchor" href="#contents"><span class="octicon octicon-link"></span></a>Contents</h1>
+
+<ul>
+<li><a href="README.md#requirements">Requirements</a></li>
+<li><a href="README.md#api">API</a></li>
+<li><a href="README.md#merchant-keypair">Merchant keypair</a></li>
+<li><a href="README.md#signature">Signature</a></li>
+<li><a href="README.md#example-applications">Example applications</a></li>
+</ul><h1>
 <a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h1>
 
 <ul>
@@ -45,24 +54,25 @@
 </ul><h1>
 <a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h1>
 
-<p><a href="https://spectrocoin.com/api/">Interactive and exact SpectroCoin merchant API operation list</a>.
-<a href="https://spectrocoin.com/api/merchant/1/">Root Merchant REST based API address</a></p>
-
-<h2>
+<ul>
+<li>
+<a href="https://spectrocoin.com/api/">Interactive and exact SpectroCoin merchant API operation list</a>.</li>
+<li><a href="https://spectrocoin.com/api/merchant/1/">Root Merchant REST based API address</a></li>
+</ul><h2>
 <a name="error-result" class="anchor" href="#error-result"><span class="octicon octicon-link"></span></a>Error result</h2>
 
 <p>When calling any of API operation, it may result and error.
 Errors should be returned as <strong>JSON</strong> format on <strong>203</strong> http status code.</p>
 
 <div class="highlight highlight-json"><pre><span class="p">[</span>
-      <span class="p">{</span>
-      <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"apiId is required"</span>
-   <span class="p">},</span>
-      <span class="p">{</span>
-      <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"merchantId is required"</span>
-   <span class="p">}</span>
+  <span class="p">{</span>
+    <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"apiId is required"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"merchantId is required"</span>
+  <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
 
@@ -117,8 +127,9 @@ Errors should be returned as <strong>JSON</strong> format on <strong>203</strong
 <h3>
 <a name="request" class="anchor" href="#request"><span class="octicon octicon-link"></span></a>Request</h3>
 
-<p>Request URL: <a href="https://spectrocoin.com/api/merchant/1/createOrder">https://spectrocoin.com/api/merchant/1/createOrder</a>
-For this method server accept only <strong>POST</strong> of <strong>"application/x-www-form-urlencoded"</strong> media type.</p>
+<p>Request URL: <a href="https://spectrocoin.com/api/merchant/1/createOrder">https://spectrocoin.com/api/merchant/1/createOrder</a></p>
+
+<p>For this method server accept only <strong>POST</strong> of <strong>"application/x-www-form-urlencoded"</strong> media type.</p>
 
 <table>
 <thead><tr>
@@ -214,7 +225,16 @@ For this method server accept only <strong>POST</strong> of <strong>"application
 <td>Generated order request signature</td>
 </tr>
 </tbody>
-</table><div class="highlight highlight-http"><pre><span class="err">https://spectrocoin.com/api/merchant/1/createOrder?merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Description&amp;callbackUrl=http://testas.lt/api/check&amp;successUrl=&amp;failureUrl=&amp;sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT/vn+0KjY7f9tdYQjk67XTFY+n1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH/objevHiOGkV9+jTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA+HNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c+/uCAq+oafTRV9+d9meTRbC+FTDf/AMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy/tS6fb8MiFBnOw==</span>
+</table><p>Example HTTP request:</p>
+
+<div class="highlight highlight-http"><pre><span class="nf">POST</span> <span class="nn">https://spectrocoin.com/api/merchant/1/createOrder</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip,deflate</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">658</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">spectrocoin.com</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
+
+merchantId=169&amp;apiId=1&amp;orderId=Order%20123&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=50.0&amp;description=My%20special%20order&amp;culture=en&amp;callbackUrl=https%3A%2F%2Fmerchan.com%2Fcallback&amp;successUrl=https%3A%2F%2Fmerchan.com%2Fsuccess&amp;failureUrl=https%3A%2F%2Fmerchan.com%2Ffailure&amp;sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT%2Fvn%2B0KjY7f9tdYQjk67XTFY%2Bn1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH%2FobjevHiOGkV9%2BjTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA%2BHNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c%2B%2FuCAq%2BoafTRV9%2Bd9meTRbC%2BFTDf%2FAMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy%2FtS6fb8MiFBnOw%3D%3D
 </pre></div>
 
 <h3>
@@ -292,7 +312,7 @@ For this method server accept only <strong>POST</strong> of <strong>"application
 <a name="callback" class="anchor" href="#callback"><span class="octicon octicon-link"></span></a>Callback</h3>
 
 <p><strong>POST</strong> request to merchant provided order callback url. Request provides information about current order status. Usually there will be several callbacks for a successful order (pending, paid).
-Merchant page must return HTTP Response 200 with content: "<strong><em>ok</em></strong>" for Spectro Coin API to confirm callback as sent successfully.</p>
+Merchant page must return HTTP Response <strong>200</strong> with content: <strong>*ok*</strong> for Spectro Coin API to confirm callback as sent successfully.</p>
 
 <p>Complex object <code>OrderCallback</code>.</p>
 
@@ -377,7 +397,59 @@ Merchant page must return HTTP Response 200 with content: "<strong><em>ok</em></
 <td>Generated order callback signature</td>
 </tr>
 </tbody>
-</table><h1>
+</table><p>Order status table</p>
+
+<table>
+<thead><tr>
+<th>Status Code</th>
+<th>Order status</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>New</td>
+<td>Start state when order is registered in SpectroCoin system</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Pending</td>
+<td>Payment is received and waiting to be confirmed</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Paid</td>
+<td>Order is complete</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Failed</td>
+<td>Some error occured</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Expired</td>
+<td>Payment was not received in time</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Test</td>
+<td>Test order</td>
+</tr>
+</tbody>
+</table><p>Example HTTP request:</p>
+
+<div class="highlight highlight-http"><pre><span class="nf">POST</span> <span class="nn">https://merchant.com/callback</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip,deflate</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">578</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">merchant.com</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
+
+merchantId=169&amp;apiId=1&amp;orderId=Order%20123&amp;payCurrency=BTC&amp;payAmount=1.23456789&amp;receiveCurrency=EUR&amp;receiveAmount=50.0&amp;receivedAmount=0.0&amp;description=My%20special%20order&amp;orderRequestId=123&amp;status=1&amp;sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT%2Fvn%2B0KjY7f9tdYQjk67XTFY%2Bn1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH%2FobjevHiOGkV9%2BjTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA%2BHNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c%2B%2FuCAq%2BoafTRV9%2Bd9meTRbC%2BFTDf%2FAMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy%2FtS6fb8MiFBnOw%3D%3D
+</pre></div>
+
+<h1>
 <a name="merchant-keypair" class="anchor" href="#merchant-keypair"><span class="octicon octicon-link"></span></a>Merchant keypair</h1>
 
 <p>You should create keypair (private and public keys) (<a href="http://en.wikipedia.org/wiki/Public-key_cryptography">Wiki</a>) for your requests to be signed and validated by Spectro Coin.
@@ -409,16 +481,25 @@ openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
 
 <p>All API requests must be signed with merchant private key so they can be validated with merchant public key (provided in API configuration). Some API request may result in callback from Spectro Coin, such request are also signed by Spectro Coin and must be validated by merchant using Spectro Coin public key.</p>
 
+<p>Numbers must be formatted with <strong>0.0#######</strong> number format:</p>
+
+<pre><code>null =&gt; 0.0
+0 =&gt; 0.0
+0.0 =&gt; 0.0
+1.1 =&gt; 1.1
+1.123 =&gt; 1.123
+</code></pre>
+
+<p>Example URL encoded concatinated parameters:</p>
+
+<pre><code>merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Some+string+with+symbols+%25%3D%26&amp;callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck
+</code></pre>
+
 <h2>
 <a name="signing" class="anchor" href="#signing"><span class="octicon octicon-link"></span></a>Signing</h2>
 
 <p>Request to be signed must be converted to <strong>UTF-8 URL encoded concatinated parameters</strong> of one string line with parameter name and in specific order specified in documentation.
 Singature must be <strong>Base64 encoded</strong>.</p>
-
-<p>Example URL encoded concatinated parameters</p>
-
-<pre><code>merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Some+string+with+symbols+%25%3D%26&amp;callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck
-</code></pre>
 
 <h3>
 <a name="java-signing-using-sample-application" class="anchor" href="#java-signing-using-sample-application"><span class="octicon octicon-link"></span></a>Java signing (using sample application)</h3>
@@ -462,6 +543,19 @@ Request must be converted to <strong>UTF-8 URL encoded concatinated parameters</
 <span class="nv">$responseDecodedSign</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$encodedSignature</span><span class="p">);</span>
 <span class="nv">$validity</span> <span class="o">=</span> <span class="nb">openssl_verify</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nv">$responseDecodedSign</span><span class="p">,</span> <span class="nv">$public_key_pem</span><span class="p">,</span> <span class="nx">OPENSSL_ALGO_SHA1</span><span class="p">);</span>
 </pre></div>
+
+<h1>
+<a name="example-applications" class="anchor" href="#example-applications"><span class="octicon octicon-link"></span></a>Example applications</h1>
+
+<h2>
+<a name="java" class="anchor" href="#java"><span class="octicon octicon-link"></span></a>Java</h2>
+
+<p>Sample Java application could be found here</p>
+
+<h2>
+<a name="php" class="anchor" href="#php"><span class="octicon octicon-link"></span></a>PHP</h2>
+
+<p>Sample PHP application could be found here</p>
       </section>
     </div>
 
