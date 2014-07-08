@@ -2,6 +2,14 @@ SpectroCoin Merchant API
 ========================
 This document describes [Spectro Coin](https://spectrocoin.com) merchat service API specification.
 
+# Contents
+
+* Requirements
+* API
+* Merchant keypair
+* Signature
+* Example applications
+
 # Requirements
 
 * Must have a SpectroCoin account ([Sign Up!](https://spectrocoin.com/en/signup.html)) to setup and test API. For merchant API usage in production you must approve your account.
@@ -9,8 +17,8 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchat service 
 
 # API
 
-[Interactive and exact SpectroCoin merchant API operation list](https://spectrocoin.com/api/).
-[Root Merchant REST based API address](https://spectrocoin.com/api/merchant/1/)
+* [Interactive and exact SpectroCoin merchant API operation list](https://spectrocoin.com/api/).
+* [Root Merchant REST based API address](https://spectrocoin.com/api/merchant/1/)
 
 ## Error result
 
@@ -19,14 +27,14 @@ Errors should be returned as **JSON** format on **203** http status code.
 
 ```json
 [
-      {
-      "code": 1,
-      "message": "apiId is required"
-   },
-      {
-      "code": 1,
-      "message": "merchantId is required"
-   }
+  {
+    "code": 1,
+    "message": "apiId is required"
+  },
+  {
+    "code": 1,
+    "message": "merchantId is required"
+  }
 ]
 ```
 
@@ -49,6 +57,7 @@ Merchant who wants his customer order to be paid creates order at Spectro Coin w
 ### Request
 
 Request URL: https://spectrocoin.com/api/merchant/1/createOrder
+
 For this method server accept only **POST** of **"application/x-www-form-urlencoded"** media type.
 
 Seq No. | Field | Type | Required | Example
@@ -105,7 +114,7 @@ validUntil | Long | Timestamp (how many milliseconds have passed since January 1
 ### Callback
 
 **POST** request to merchant provided order callback url. Request provides information about current order status. Usually there will be several callbacks for a successful order (pending, paid).
-Merchant page must return HTTP Response 200 with content: "***ok***" for Spectro Coin API to confirm callback as sent successfully.
+Merchant page must return HTTP Response **200** with content: **\*ok\*** for Spectro Coin API to confirm callback as sent successfully.
 
 Complex object `OrderCallback`.
 
@@ -123,6 +132,17 @@ Seq No. | Field | Type | Example
 10. | orderRequestId | Long | Order request id, Spectro Coin Id to track orders
 11. | status | Short | Order status
 12. | sign | String | Generated order callback signature
+
+Order status table
+
+Status Code | Order status | Description
+------------|--------------|------------
+1 | New | Start state when order is registered in SpectroCoin system
+2 | Pending | Payment is received and waiting to be confirmed
+3 | Paid | Order is complete
+4 | Failed | Some error occured
+5 | Expired | Payment was not received in time
+6 | Test | Test order
 
 
 # Merchant keypair
@@ -154,15 +174,24 @@ openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
 
 All API requests must be signed with merchant private key so they can be validated with merchant public key (provided in API configuration). Some API request may result in callback from Spectro Coin, such request are also signed by Spectro Coin and must be validated by merchant using Spectro Coin public key.
 
+Numbers must be formatted with **0.0#######** number format:
+```
+null => 0.0
+0 => 0.0
+0.0 => 0.0
+1.1 => 1.1
+1.123 => 1.123
+```
+
+Example URL encoded concatinated parameters:
+```
+merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck
+```
+
 ## Signing
 
 Request to be signed must be converted to **UTF-8 URL encoded concatinated parameters** of one string line with parameter name and in specific order specified in documentation.
 Singature must be **Base64 encoded**.
-
-Example URL encoded concatinated parameters
-```
-merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck
-```
 
 ### Java signing (using sample application)
 
@@ -206,3 +235,12 @@ $responseDecodedSign = base64_decode($encodedSignature);
 $validity = openssl_verify($data, $responseDecodedSign, $public_key_pem, OPENSSL_ALGO_SHA1);
 ```
 
+# Example applications
+
+## Java
+
+Sample Java application could be found here
+
+## PHP
+
+Sample PHP application could be found here
