@@ -20,36 +20,6 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchat service 
 * [Interactive and exact SpectroCoin merchant API operation list](https://spectrocoin.com/api/).
 * [Root Merchant REST based API address](https://spectrocoin.com/api/merchant/1/)
 
-## Error result
-
-When calling any of API operation, it may result and error.
-Errors should be returned as **JSON** format on **203** http status code.
-
-```json
-[
-  {
-    "code": 1,
-    "message": "apiId is required"
-  },
-  {
-    "code": 1,
-    "message": "merchantId is required"
-  }
-]
-```
-
-Error code | Error message
------------|--------------
-1 | Validation errors
-2 | Bad signature
-3 | Not supported currency
-4 | Can't create order, please check your merchant account
-5 | Merchant order id exist
-6 | Check your merchantId and apiId
-97 | Unsupported Media Type
-99 | Please check your request
-100 | Unexpected error
-
 ## /createOrder
 
 Merchant who wants his customer order to be paid creates order at Spectro Coin with payment details and presents result to his customer. Merchant can also redirect his customer to returned redirect url where customer will be presented with interactive payment window.
@@ -165,6 +135,39 @@ Connection: Keep-Alive
 
 merchantId=169&apiId=1&orderId=Order%20123&payCurrency=BTC&payAmount=1.23456789&receiveCurrency=EUR&receiveAmount=50.0&receivedAmount=0.0&description=My%20special%20order&orderRequestId=123&status=1&sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT%2Fvn%2B0KjY7f9tdYQjk67XTFY%2Bn1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH%2FobjevHiOGkV9%2BjTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA%2BHNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c%2B%2FuCAq%2BoafTRV9%2Bd9meTRbC%2BFTDf%2FAMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy%2FtS6fb8MiFBnOw%3D%3D
 ```
+
+## Error result
+
+When calling any of API operation, it may result and error.
+Errors should be returned as **JSON** format on **203** http status code.
+
+```json
+[
+  {
+    "code": 1,
+    "message": "apiId is required"
+  },
+  {
+    "code": 1,
+    "message": "merchantId is required"
+  }
+]
+```
+
+Error codes
+
+Error code | Error message
+-----------|--------------
+1 | Validation errors
+2 | Bad signature
+3 | Not supported currency
+4 | Can't create order, please check your merchant account
+5 | Merchant order id exist
+6 | Check your merchantId and apiId
+97 | Unsupported Media Type
+99 | Please check your request
+100 | Unexpected error
+
 
 # Merchant keypair
 
