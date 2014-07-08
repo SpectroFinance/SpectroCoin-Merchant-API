@@ -76,8 +76,17 @@ Seq No. | Field | Type | Required | Example
 12. | sign | String | + | Generated order request signature
 
 
+Example HTTP request:
+
 ```http
-https://spectrocoin.com/api/merchant/1/createOrder?merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Description&callbackUrl=http://testas.lt/api/check&successUrl=&failureUrl=&sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT/vn+0KjY7f9tdYQjk67XTFY+n1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH/objevHiOGkV9+jTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA+HNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c+/uCAq+oafTRV9+d9meTRbC+FTDf/AMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy/tS6fb8MiFBnOw==
+POST https://spectrocoin.com/api/merchant/1/createOrder HTTP/1.1
+Accept-Encoding: gzip,deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 658
+Host: spectrocoin.com
+Connection: Keep-Alive
+
+merchantId=169&apiId=1&orderId=Order%20123&payCurrency=BTC&payAmount=0.0&receiveAmount=50.0&description=My%20special%20order&culture=en&callbackUrl=https%3A%2F%2Fmerchan.com%2Fcallback&successUrl=https%3A%2F%2Fmerchan.com%2Fsuccess&failureUrl=https%3A%2F%2Fmerchan.com%2Ffailure&sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT%2Fvn%2B0KjY7f9tdYQjk67XTFY%2Bn1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH%2FobjevHiOGkV9%2BjTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA%2BHNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c%2B%2FuCAq%2BoafTRV9%2Bd9meTRbC%2BFTDf%2FAMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy%2FtS6fb8MiFBnOw%3D%3D
 ```
 
 ### Response
