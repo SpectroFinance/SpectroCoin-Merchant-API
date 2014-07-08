@@ -34,7 +34,7 @@
         <h1>
 <a name="spectrocoin-merchant-api" class="anchor" href="#spectrocoin-merchant-api"><span class="octicon octicon-link"></span></a>SpectroCoin Merchant API</h1>
 
-<p>This document describes <a href="https://spectrocoin.com">Spectro Coin</a> merchat service API specification.</p>
+<p>This document describes <a href="https://spectrocoin.com">Spectro Coin</a> merchant service API specification.</p>
 
 <h1>
 <a name="contents" class="anchor" href="#contents"><span class="octicon octicon-link"></span></a>Contents</h1>
@@ -50,6 +50,7 @@
 
 <ul>
 <li>Must have a SpectroCoin account (<a href="https://spectrocoin.com/en/signup.html">Sign Up!</a>) to setup and test API. For merchant API usage in production you must approve your account.</li>
+<li>Must create merchant API instance on the system</li>
 <li>Must <a href="README.md#merchant-keypair">generate</a> private and public key pairs.</li>
 </ul><h1>
 <a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h1>
@@ -59,67 +60,6 @@
 <a href="https://spectrocoin.com/api/">Interactive and exact SpectroCoin merchant API operation list</a>.</li>
 <li><a href="https://spectrocoin.com/api/merchant/1/">Root Merchant REST based API address</a></li>
 </ul><h2>
-<a name="error-result" class="anchor" href="#error-result"><span class="octicon octicon-link"></span></a>Error result</h2>
-
-<p>When calling any of API operation, it may result and error.
-Errors should be returned as <strong>JSON</strong> format on <strong>203</strong> http status code.</p>
-
-<div class="highlight highlight-json"><pre><span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"apiId is required"</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"merchantId is required"</span>
-  <span class="p">}</span>
-<span class="p">]</span>
-</pre></div>
-
-<table>
-<thead><tr>
-<th>Error code</th>
-<th>Error message</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Validation errors</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Bad signature</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Not supported currency</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Can't create order, please check your merchant account</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Merchant order id exist</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Check your merchantId and apiId</td>
-</tr>
-<tr>
-<td>97</td>
-<td>Unsupported Media Type</td>
-</tr>
-<tr>
-<td>99</td>
-<td>Please check your request</td>
-</tr>
-<tr>
-<td>100</td>
-<td>Unexpected error</td>
-</tr>
-</tbody>
-</table><h2>
 <a name="createorder" class="anchor" href="#createorder"><span class="octicon octicon-link"></span></a>/createOrder</h2>
 
 <p>Merchant who wants his customer order to be paid creates order at Spectro Coin with payment details and presents result to his customer. Merchant can also redirect his customer to returned redirect url where customer will be presented with interactive payment window.</p>
@@ -424,7 +364,7 @@ Merchant page must return HTTP Response <strong>200</strong> with content: <stro
 <tr>
 <td>4</td>
 <td>Failed</td>
-<td>Some error occured</td>
+<td>Some error occurred</td>
 </tr>
 <tr>
 <td>5</td>
@@ -449,10 +389,73 @@ Merchant page must return HTTP Response <strong>200</strong> with content: <stro
 merchantId=169&amp;apiId=1&amp;orderId=Order%20123&amp;payCurrency=BTC&amp;payAmount=1.23456789&amp;receiveCurrency=EUR&amp;receiveAmount=50.0&amp;receivedAmount=0.0&amp;description=My%20special%20order&amp;orderRequestId=123&amp;status=1&amp;sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT%2Fvn%2B0KjY7f9tdYQjk67XTFY%2Bn1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH%2FobjevHiOGkV9%2BjTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA%2BHNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c%2B%2FuCAq%2BoafTRV9%2Bd9meTRbC%2BFTDf%2FAMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy%2FtS6fb8MiFBnOw%3D%3D
 </pre></div>
 
-<h1>
-<a name="merchant-keypair" class="anchor" href="#merchant-keypair"><span class="octicon octicon-link"></span></a>Merchant keypair</h1>
+<h2>
+<a name="error-result" class="anchor" href="#error-result"><span class="octicon octicon-link"></span></a>Error result</h2>
 
-<p>You should create keypair (private and public keys) (<a href="http://en.wikipedia.org/wiki/Public-key_cryptography">Wiki</a>) for your requests to be signed and validated by Spectro Coin.
+<p>When calling any of API operation, it may result and error.
+Errors should be returned as <strong>JSON</strong> format on <strong>203</strong> http status code.</p>
+
+<div class="highlight highlight-json"><pre><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"apiId is required"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">"code"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"merchantId is required"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+<p>Error codes</p>
+
+<table>
+<thead><tr>
+<th>Error code</th>
+<th>Error message</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Validation errors</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bad signature</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Not supported currency</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Can't create order, please check your merchant account</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Merchant order id exist</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Check your merchantId and apiId</td>
+</tr>
+<tr>
+<td>97</td>
+<td>Unsupported Media Type</td>
+</tr>
+<tr>
+<td>99</td>
+<td>Please check your request</td>
+</tr>
+<tr>
+<td>100</td>
+<td>Unexpected error</td>
+</tr>
+</tbody>
+</table><h1>
+<a name="merchant-key-pair" class="anchor" href="#merchant-key-pair"><span class="octicon octicon-link"></span></a>Merchant key pair</h1>
+
+<p>You should create key pair (private and public keys) (<a href="http://en.wikipedia.org/wiki/Public-key_cryptography">Wiki</a>) for your requests to be signed and validated by Spectro Coin.
 <strong>Private key</strong> must be kept safely by merchant without any disclosure.
 <strong>Public key</strong> must be inserted into configuration of specific Spectro Coin API (Create/Edit form of API details). This key will be used to check signature validity of any merchant API request signed by specific merchant and API.</p>
 
@@ -490,7 +493,7 @@ openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
 1.123 =&gt; 1.123
 </code></pre>
 
-<p>Example URL encoded concatinated parameters:</p>
+<p>Example URL encoded concatenated parameters:</p>
 
 <pre><code>merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Some+string+with+symbols+%25%3D%26&amp;callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck
 </code></pre>
@@ -498,8 +501,8 @@ openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
 <h2>
 <a name="signing" class="anchor" href="#signing"><span class="octicon octicon-link"></span></a>Signing</h2>
 
-<p>Request to be signed must be converted to <strong>UTF-8 URL encoded concatinated parameters</strong> of one string line with parameter name and in specific order specified in documentation.
-Singature must be <strong>Base64 encoded</strong>.</p>
+<p>Request to be signed must be converted to <strong>UTF-8 URL encoded concatenated parameters</strong> of one string line including parameter names and ordered in specific sequence specified in documentation.
+Signature must be <strong>Base64 encoded</strong>.</p>
 
 <h3>
 <a name="java-signing-using-sample-application" class="anchor" href="#java-signing-using-sample-application"><span class="octicon octicon-link"></span></a>Java signing (using sample application)</h3>
@@ -522,9 +525,9 @@ Singature must be <strong>Base64 encoded</strong>.</p>
 <h2>
 <a name="validating-callbacks" class="anchor" href="#validating-callbacks"><span class="octicon octicon-link"></span></a>Validating callbacks</h2>
 
-<p>Requests comming from Spectro Coin to merchant pages are also signed. Merchant must validate signature of the request.
+<p>Requests coming from Spectro Coin to merchant pages are also signed. Merchant must validate signature of the request.
 Request signature to be validated must be <strong>Base64 decoded</strong>.
-Request must be converted to <strong>UTF-8 URL encoded concatinated parameters</strong> of one string line with parameter name and in specific order specified in documentation.</p>
+Request must be converted to <strong>UTF-8 URL encoded concatenated parameters</strong> of one string line including parameter names and ordered in specific sequence specified in documentation.</p>
 
 <h3>
 <a name="java-validation-using-sample-application" class="anchor" href="#java-validation-using-sample-application"><span class="octicon octicon-link"></span></a>Java validation (using sample application)</h3>
@@ -567,7 +570,17 @@ Request must be converted to <strong>UTF-8 URL encoded concatinated parameters</
       </footer>
     </div>
 
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-51179757-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
 
   </body>
 </html>
