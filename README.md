@@ -1,6 +1,6 @@
 SpectroCoin Merchant API
 ========================
-This document describes [Spectro Coin](https://spectrocoin.com) merchat service API specification.
+This document describes [Spectro Coin](https://spectrocoin.com) merchant service API specification.
 
 # Contents
 
@@ -13,6 +13,7 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchat service 
 # Requirements
 
 * Must have a SpectroCoin account ([Sign Up!](https://spectrocoin.com/en/signup.html)) to setup and test API. For merchant API usage in production you must approve your account.
+* Must create merchant API instance on the system
 * Must [generate](README.md#merchant-keypair) private and public key pairs.
 
 # API
@@ -119,7 +120,7 @@ Status Code | Order status | Description
 1 | New | Start state when order is registered in SpectroCoin system
 2 | Pending | Payment is received and waiting to be confirmed
 3 | Paid | Order is complete
-4 | Failed | Some error occured
+4 | Failed | Some error occurred
 5 | Expired | Payment was not received in time
 6 | Test | Test order
 
@@ -169,9 +170,9 @@ Error code | Error message
 100 | Unexpected error
 
 
-# Merchant keypair
+# Merchant key pair
 
-You should create keypair (private and public keys) ([Wiki](http://en.wikipedia.org/wiki/Public-key_cryptography)) for your requests to be signed and validated by Spectro Coin.
+You should create key pair (private and public keys) ([Wiki](http://en.wikipedia.org/wiki/Public-key_cryptography)) for your requests to be signed and validated by Spectro Coin.
 **Private key** must be kept safely by merchant without any disclosure.
 **Public key** must be inserted into configuration of specific Spectro Coin API (Create/Edit form of API details). This key will be used to check signature validity of any merchant API request signed by specific merchant and API.
 
@@ -207,15 +208,15 @@ null => 0.0
 1.123 => 1.123
 ```
 
-Example URL encoded concatinated parameters:
+Example URL encoded concatenated parameters:
 ```
 merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck
 ```
 
 ## Signing
 
-Request to be signed must be converted to **UTF-8 URL encoded concatinated parameters** of one string line with parameter name and in specific order specified in documentation.
-Singature must be **Base64 encoded**.
+Request to be signed must be converted to **UTF-8 URL encoded concatenated parameters** of one string line including parameter names and ordered in specific sequence specified in documentation.
+Signature must be **Base64 encoded**.
 
 ### Java signing (using sample application)
 
@@ -237,9 +238,9 @@ $encodedSignature = base64_encode($signature);
 
 ## Validating callbacks
 
-Requests comming from Spectro Coin to merchant pages are also signed. Merchant must validate signature of the request.
+Requests coming from Spectro Coin to merchant pages are also signed. Merchant must validate signature of the request.
 Request signature to be validated must be **Base64 decoded**.
-Request must be converted to **UTF-8 URL encoded concatinated parameters** of one string line with parameter name and in specific order specified in documentation.
+Request must be converted to **UTF-8 URL encoded concatenated parameters** of one string line including parameter names and ordered in specific sequence specified in documentation.
 
 ### Java validation (using sample application)
 
