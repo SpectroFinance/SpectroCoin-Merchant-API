@@ -9,12 +9,121 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchat service 
 
 # API
 
+[Interactive and exact SpectroCoin merchant API operation list](https://spectrocoin.com/api/).
+[Root Merchant REST based API address](https://spectrocoin.com/api/merchant/1/)
+
 ## Error result
 
-## createOrder
+When calling any of API operation, it may result and error.
+Errors should be returned as **JSON** format on **203** http status code.
+
+```json
+[
+      {
+      "code": 1,
+      "message": "apiId is required"
+   },
+      {
+      "code": 1,
+      "message": "merchantId is required"
+   }
+]
+```
+
+Error code | Error message
+-----------|--------------
+1 | Validation errors
+2 | Bad signature
+3 | Not supported currency
+4 | Can't create order, please check your merchant account
+5 | Merchant order id exist
+6 | Check your merchantId and apiId
+97 | Unsupported Media Type
+99 | Please check your request
+100 | Unexpected error
+
+## /createOrder
+
+Merchant who wants his customer order to be paid creates order at Spectro Coin with payment details and presents result to his customer. Merchant can also redirect his customer to returned redirect url where customer will be presented with interactive payment window.
+
 ### Request
+
+Request URL: https://spectrocoin.com/api/merchant/1/createOrder
+For this method server accept only **POST** of **"application/x-www-form-urlencoded"** media type.
+
+Seq No. | Field | Type | Required | Example
+--------|-------|------|----------|--------
+1. | merchantId | Long | + | 12345
+2. | apiId | Long | + | 1
+3. | orderId | String | - | ABC001, Must be unique for all merchant API orders. If not provided, order request id will be assigned
+4. | payCurrency | String | + | BTC
+5. | payAmount | Double | + or receiveAmount | 123.45, 1.23456789 (BTC)
+6. | receiveAmount | Double | + or payAmount | 123.45, 1.23456789 (BTC)
+7. | description | String | - | Order ABC001 for User 123
+8. | culture | String | - | Language for response ("en", "lt", "ru", "de")
+9. | callbackUrl | String | - | https://merchant.com/orderCallback?user=123
+10. | successUrl | String | - | https://merchant.com/success?user=123
+11. | failureUrl | String | - | https://merchant.com/failure?user=123
+12. | sign | String | + | Generated order request signature
+
+
+```http
+https://spectrocoin.com/api/merchant/1/createOrder?merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Description&callbackUrl=http://testas.lt/api/check&successUrl=&failureUrl=&sign=r6NuZ0JCBSAGCpPlYG5eXLkSRyOqSncWj8j7LfLIiiWeZdeH0Yy2nZ4Osn0JJY9cqWnoT/vn+0KjY7f9tdYQjk67XTFY+n1yg41FkzfbDxF8LQWYinLpnBBCf5AlFACJJ26yBHXMxsPFn67khxOV55AGRJeJcw03anH/objevHiOGkV9+jTVLwV553U6Y9Ud995D66f45QpPR54IgBBDhA+HNlwockLcEyzCMbwMPs0pnsfVO65x0if8TJ2MtwTCa5c+/uCAq+oafTRV9+d9meTRbC+FTDf/AMyU9SiltpdIqoZPRypB7faBDZ5YVsQrRPIfD6Wy/tS6fb8MiFBnOw==
+```
+
 ### Response
+
+**JSON** formatted response of complex object `Order`.
+
+Field | Type | Example
+------|------|--------
+orderRequestId | Long | Order request id, Spectro Coin Id to track orders
+orderId | String | ABC001
+payCurrency | String | BTC
+payAmount | Double | 123.45, 1.23456789 (BTC)
+receiveCurrency | String | BTC
+receiveAmount | Double | 123.45, 1.23456789 (BTC)
+depositAddress | String | 1HZcE7ZbwnEKHYcKkva1uZoxZbFvRyK3fm
+redirectUrl | String | https://spectrocoin.com/en/pay/order/18-5fD2HgMK.html
+validUntil | Long | Timestamp (how many milliseconds have passed since January 1, 1970, 00:00:00 GMT) until order is valid.
+
+
+```json
+{
+"depositAddress":"1HZcE7ZbwnEKHYcKkva1uZoxZbFvRyK3fm",
+"orderId":"18",
+"orderRequestId":18,
+"payAmount":0.00246995,
+"payCurrency":"BTC",
+"receiveAmount":1.0,
+"receiveCurrency":"EUR",
+"redirectUrl":"https://spectrocoin.com/en/pay/order/18-5fD2HgMK.html",
+"validUntil":1401191587663
+}
+```
+
 ### Callback
+
+**POST** request to merchant provided order callback url. Request provides information about current order status. Usually there will be several callbacks for a successful order (pending, paid).
+Merchant page must return HTTP Response 200 with content: "***ok***" for Spectro Coin API to confirm callback as sent successfully.
+
+Complex object `OrderCallback`.
+
+Seq No. | Field | Type | Example
+--------|-------|------|--------
+1. | merchantId | Long | 12345
+2. | apiId | Long | 1
+3. | orderId | String | ABC001
+4. | payCurrency | String | BTC
+5. | payAmount | Double | 123.45, 1.23456789 (BTC)
+6. | receiveCurrency | String | BTC, EUR
+7. | receiveAmount | Double | 123.45, 1.23456789 (BTC)
+8. | receivedAmount | Double | 123.45, 1.23456789 (BTC)
+9. | description | String | Order ABC001 for User 123
+10. | orderRequestId | Long | Order request id, Spectro Coin Id to track orders
+11. | status | Short | Order status
+12. | sign | String | Generated order callback signature
+
 
 # Merchant keypair
 
@@ -26,7 +135,7 @@ You should create keypair (private and public keys) ([Wiki](http://en.wikipedia.
 
 ### Private key generation
 
-```
+```shell
 # generate a 2048-bit RSA private key
 openssl genrsa -out "C:\private.pem" 2048
 
@@ -36,7 +145,7 @@ openssl pkcs8 -topk8 -inform PEM -outform DER -in "C:\private.pem" -out "C:\priv
 
 ### Public key generation
 
-```
+```shell
 # output public key portion in PEM format
 openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
 ```
