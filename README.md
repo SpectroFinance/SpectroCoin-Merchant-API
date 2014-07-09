@@ -4,17 +4,17 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchant service
 
 # Contents
 
-* [Requirements](README.md#requirements)
-* [API](README.md#api)
-* [Merchant keypair](README.md#merchant-keypair)
-* [Signature](README.md#signature)
-* [Example applications](README.md#example-applications)
+* [Requirements](#requirements)
+* [API](#api)
+* [Merchant keypair](#merchant-keypair)
+* [Signature](#signature)
+* [Example applications](#example-applications)
 
 # Requirements
 
 * Must have a SpectroCoin account ([Sign Up!](https://spectrocoin.com/en/signup.html)) to setup and test API. For merchant API usage in production you must approve your account.
 * Must create merchant API instance on the system
-* Must [generate](README.md#merchant-keypair) private and public key pairs.
+* Must [generate](#merchant-keypair) private and public key pairs.
 
 # API
 
