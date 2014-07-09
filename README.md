@@ -117,8 +117,8 @@ Order status table
 
 Status Code | Order status | Description
 ------------|--------------|------------
-1 | New | Start state when order is registered in SpectroCoin system
-2 | Pending | Payment is received and waiting to be confirmed
+1 | New | Start state when order is registered in Spectro Coin system
+2 | Pending | Payment (or part of it) was received but still not confirmed
 3 | Paid | Order is complete
 4 | Failed | Some error occurred
 5 | Expired | Payment was not received in time
