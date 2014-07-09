@@ -13,12 +13,12 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchant service
 # Requirements
 
 * Must have a SpectroCoin account ([Sign Up!](https://spectrocoin.com/en/signup.html)) to setup and test API. For merchant API usage in production you must approve your account.
-* Must create merchant API instance on the system
 * Must [generate](#merchant-key-pair) private and public key pairs.
+* Must setup merchant API instance on Spectro Coin API configuration page.
 
 # API
 
-* [Interactive and exact SpectroCoin merchant API operation list](https://spectrocoin.com/api/).
+* [Interactive SpectroCoin merchant API operation list](https://spectrocoin.com/api/)
 * [Root Merchant REST based API address](https://spectrocoin.com/api/merchant/1/)
 
 ## /createOrder
