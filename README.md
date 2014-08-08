@@ -70,7 +70,7 @@ orderRequestId | Long | Order request id, Spectro Coin Id to track orders
 orderId | String | ABC001
 payCurrency | String | BTC
 payAmount | Double | 123.45, 1.23456789 (BTC)
-receiveCurrency | String | BTC
+receiveCurrency | String | BTC, EUR
 receiveAmount | Double | 123.45, 1.23456789 (BTC)
 depositAddress | String | 1HZcE7ZbwnEKHYcKkva1uZoxZbFvRyK3fm
 redirectUrl | String | https://spectrocoin.com/en/pay/order/18-5fD2HgMK.html
@@ -218,11 +218,14 @@ merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount
 Request to be signed must be converted to **UTF-8 URL encoded concatenated parameters** of one string line including parameter names and ordered in specific sequence specified in documentation.
 Signature must be **Base64 encoded**.
 
-### Java signing (using sample application)
+### Java signing
 
 ```java
 String formValue = "merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck";
-String orderSign = SignUtil.sign(formValue, path_to_private_key);
+Signature ourSign = Signature.getInstance("SHA1withRSA");
+ourSign.initSign(privateKey);
+ourSign.update(formValue.getBytes());
+return new BASE64Encoder().encode(ourSign.sign());
 ```
 
 ### PHP signing
@@ -242,12 +245,16 @@ Requests coming from Spectro Coin to merchant pages are also signed. Merchant mu
 Request signature to be validated must be **Base64 decoded**.
 Request must be converted to **UTF-8 URL encoded concatenated parameters** of one string line including parameter names and ordered in specific sequence specified in documentation.
 
-### Java validation (using sample application)
+### Java validation
 
 ```java
 String parameters = "merchantId=25&apiId=25&orderId=L254S&payCurrency=BTC&payAmount=25.0&receiveCurrency=EUR&receiveAmount=245.0&description=Some+sting+with+symbols+%25%3D%26&orderRequestId=11&status=1";
 String responseSign = "qGy2ablxcWtoGVAS2YufkYVWT0jLSilaUtMkz6Z8P6Mn6qInewEfK5Bsn4BFRxg1suENJJF8LJGyJV6vZt3XLmAHoTJwRjWLij2FROdFthuVt/U4Ima6uFm6hkjseeNLvJtdLFYWSAyKkt7wpeLPA2QUspQbG0asOhwd8EeP+mZDSfvOwTv2OFvGWcVEPR6DOWKEaw5wW6ilM8yZKowQzhrqoCUyJN4pxK02PLTKGIb6YDu1nESrN6ebp7ugskYwcmynLWNOY8Tu1bdg0fWBF2uCgJkWpc9yy2UYbtpVO7sCjIe+dmojJzqCwS5/7Ny04Mf+ouj6oEchxHfUq7VpaA==";
-boolean callbackSign = CheckSignUtil.checkSign(parameters, responseSign, path_to_public_spectro_coin_key);
+Signature verifier = Signature.getInstance("SHA1withRSA");
+verifier.initVerify(publicKey);
+verifier.update(parameters.getBytes());
+byte[] bytes = new BASE64Decoder().decodeBuffer(responseSign);
+return verifier.verify(bytes);
 ```
 
 ### PHP validation
@@ -262,10 +269,12 @@ $validity = openssl_verify($data, $responseDecodedSign, $public_key_pem, OPENSSL
 
 # Example applications
 
+There are made several sample SpectroCoin merchant API client applications. You should adapt them for your needs.
+
 ## Java
 
-Sample Java application could be found here
+Sample Java application could be found [here](https://github.com/SpectroFinance/SpectroCoin-Merchant-Java).
 
 ## PHP
 
-Sample PHP application could be found here
+Sample PHP application could be found [here](https://github.com/SpectroFinance/SpectroCoin-Merchant-PHP).
