@@ -2,9 +2,9 @@
 <html>
 
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Spectro Coin Merchant API : " />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Spectro Coin Merchant API : ">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -211,7 +211,7 @@ merchantId=169&amp;apiId=1&amp;orderId=Order%20123&amp;payCurrency=BTC&amp;payAm
 <tr>
 <td>receiveCurrency</td>
 <td>String</td>
-<td>BTC</td>
+<td>BTC, EUR</td>
 </tr>
 <tr>
 <td>receiveAmount</td>
@@ -348,12 +348,12 @@ Merchant page must return HTTP Response <strong>200</strong> with content: <stro
 <tr>
 <td>1</td>
 <td>New</td>
-<td>Start state when order is registered in SpectroCoin system</td>
+<td>Start state when order is registered in Spectro Coin system</td>
 </tr>
 <tr>
 <td>2</td>
 <td>Pending</td>
-<td>Payment is received and waiting to be confirmed</td>
+<td>Payment (or part of it) was received but still not confirmed</td>
 </tr>
 <tr>
 <td>3</td>
@@ -504,10 +504,13 @@ openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
 Signature must be <strong>Base64 encoded</strong>.</p>
 
 <h3>
-<a name="java-signing-using-sample-application" class="anchor" href="#java-signing-using-sample-application"><span class="octicon octicon-link"></span></a>Java signing (using sample application)</h3>
+<a name="java-signing" class="anchor" href="#java-signing"><span class="octicon octicon-link"></span></a>Java signing</h3>
 
 <div class="highlight highlight-java"><pre><span class="n">String</span> <span class="n">formValue</span> <span class="o">=</span> <span class="s">"merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Some+string+with+symbols+%25%3D%26&amp;callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck"</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">orderSign</span> <span class="o">=</span> <span class="n">SignUtil</span><span class="o">.</span><span class="na">sign</span><span class="o">(</span><span class="n">formValue</span><span class="o">,</span> <span class="n">path_to_private_key</span><span class="o">);</span>
+<span class="n">Signature</span> <span class="n">ourSign</span> <span class="o">=</span> <span class="n">Signature</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"SHA1withRSA"</span><span class="o">);</span>
+<span class="n">ourSign</span><span class="o">.</span><span class="na">initSign</span><span class="o">(</span><span class="n">privateKey</span><span class="o">);</span>
+<span class="n">ourSign</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">formValue</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+<span class="k">return</span> <span class="k">new</span> <span class="nf">BASE64Encoder</span><span class="o">().</span><span class="na">encode</span><span class="o">(</span><span class="n">ourSign</span><span class="o">.</span><span class="na">sign</span><span class="o">());</span>
 </pre></div>
 
 <h3>
@@ -529,11 +532,15 @@ Request signature to be validated must be <strong>Base64 decoded</strong>.
 Request must be converted to <strong>UTF-8 URL encoded concatenated parameters</strong> of one string line including parameter names and ordered in specific sequence specified in documentation.</p>
 
 <h3>
-<a name="java-validation-using-sample-application" class="anchor" href="#java-validation-using-sample-application"><span class="octicon octicon-link"></span></a>Java validation (using sample application)</h3>
+<a name="java-validation" class="anchor" href="#java-validation"><span class="octicon octicon-link"></span></a>Java validation</h3>
 
 <div class="highlight highlight-java"><pre><span class="n">String</span> <span class="n">parameters</span> <span class="o">=</span> <span class="s">"merchantId=25&amp;apiId=25&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=25.0&amp;receiveCurrency=EUR&amp;receiveAmount=245.0&amp;description=Some+sting+with+symbols+%25%3D%26&amp;orderRequestId=11&amp;status=1"</span><span class="o">;</span>
 <span class="n">String</span> <span class="n">responseSign</span> <span class="o">=</span> <span class="s">"qGy2ablxcWtoGVAS2YufkYVWT0jLSilaUtMkz6Z8P6Mn6qInewEfK5Bsn4BFRxg1suENJJF8LJGyJV6vZt3XLmAHoTJwRjWLij2FROdFthuVt/U4Ima6uFm6hkjseeNLvJtdLFYWSAyKkt7wpeLPA2QUspQbG0asOhwd8EeP+mZDSfvOwTv2OFvGWcVEPR6DOWKEaw5wW6ilM8yZKowQzhrqoCUyJN4pxK02PLTKGIb6YDu1nESrN6ebp7ugskYwcmynLWNOY8Tu1bdg0fWBF2uCgJkWpc9yy2UYbtpVO7sCjIe+dmojJzqCwS5/7Ny04Mf+ouj6oEchxHfUq7VpaA=="</span><span class="o">;</span>
-<span class="kt">boolean</span> <span class="n">callbackSign</span> <span class="o">=</span> <span class="n">CheckSignUtil</span><span class="o">.</span><span class="na">checkSign</span><span class="o">(</span><span class="n">parameters</span><span class="o">,</span> <span class="n">responseSign</span><span class="o">,</span> <span class="n">path_to_public_spectro_coin_key</span><span class="o">);</span>
+<span class="n">Signature</span> <span class="n">verifier</span> <span class="o">=</span> <span class="n">Signature</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"SHA1withRSA"</span><span class="o">);</span>
+<span class="n">verifier</span><span class="o">.</span><span class="na">initVerify</span><span class="o">(</span><span class="n">publicKey</span><span class="o">);</span>
+<span class="n">verifier</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">parameters</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">BASE64Decoder</span><span class="o">().</span><span class="na">decodeBuffer</span><span class="o">(</span><span class="n">responseSign</span><span class="o">);</span>
+<span class="k">return</span> <span class="n">verifier</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span>
 </pre></div>
 
 <h3>
@@ -549,15 +556,17 @@ Request must be converted to <strong>UTF-8 URL encoded concatenated parameters</
 <h1>
 <a name="example-applications" class="anchor" href="#example-applications"><span class="octicon octicon-link"></span></a>Example applications</h1>
 
+<p>There are made several sample SpectroCoin merchant API client applications. You should adapt them for your needs.</p>
+
 <h2>
 <a name="java" class="anchor" href="#java"><span class="octicon octicon-link"></span></a>Java</h2>
 
-<p>Sample Java application could be found here</p>
+<p>Sample Java application could be found <a href="https://github.com/SpectroFinance/SpectroCoin-Merchant-Java">here</a>.</p>
 
 <h2>
 <a name="php" class="anchor" href="#php"><span class="octicon octicon-link"></span></a>PHP</h2>
 
-<p>Sample PHP application could be found here</p>
+<p>Sample PHP application could be found <a href="https://github.com/SpectroFinance/SpectroCoin-Merchant-PHP">here</a>.</p>
       </section>
     </div>
 
