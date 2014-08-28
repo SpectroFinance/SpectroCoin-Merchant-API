@@ -35,7 +35,7 @@ Seq No. | Field | Type | Required | Example
 --------|-------|------|----------|--------
 1. | merchantId | Long | + | 12345
 2. | apiId | Long | + | 1
-3. | orderId | String | - | ABC001, Must be unique for all merchant API orders. If not provided, order request id will be assigned
+3. | orderId | String | - | ABC001, **Must be unique** for all merchant API orders. If not provided, order request id will be assigned
 4. | payCurrency | String | + | BTC
 5. | payAmount | Double | + or receiveAmount | 123.45, 1.23456789 (BTC)
 6. | receiveAmount | Double | + or payAmount | 123.45, 1.23456789 (BTC)
@@ -139,8 +139,8 @@ merchantId=169&apiId=1&orderId=Order%20123&payCurrency=BTC&payAmount=1.23456789&
 
 ## Error result
 
-When calling any of API operation, it may result and error.
-Errors should be returned as **JSON** format on **203** http status code.
+When calling any of API operation, it may result an error.
+Errors will be returned **JSON** formatted with **203** http status code.
 
 ```json
 [
