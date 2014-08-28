@@ -98,7 +98,7 @@
 <td>orderId</td>
 <td>String</td>
 <td>-</td>
-<td>ABC001, Must be unique for all merchant API orders. If not provided, order request id will be assigned</td>
+<td>ABC001, <strong>Must be unique</strong> for all merchant API orders. If not provided, order request id will be assigned</td>
 </tr>
 <tr>
 <td>4.</td>
@@ -391,8 +391,8 @@ merchantId=169&amp;apiId=1&amp;orderId=Order%20123&amp;payCurrency=BTC&amp;payAm
 <h2>
 <a name="error-result" class="anchor" href="#error-result"><span class="octicon octicon-link"></span></a>Error result</h2>
 
-<p>When calling any of API operation, it may result and error.
-Errors should be returned as <strong>JSON</strong> format on <strong>203</strong> http status code.</p>
+<p>When calling any of API operation, it may result an error.
+Errors will be returned <strong>JSON</strong> formatted with <strong>203</strong> http status code.</p>
 
 <div class="highlight highlight-json"><pre><span class="p">[</span>
   <span class="p">{</span>
