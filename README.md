@@ -18,7 +18,7 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchant service
 
 # API
 
-* [Interactive SpectroCoin merchant API operation list](https://spectrocoin.com/api/)
+* [Interactive SpectroCoin merchant API operation list](https://spectrocoin.com/api/index.html)
 * [Root Merchant REST based API address](https://spectrocoin.com/api/merchant/1/)
 
 ## /createOrder
