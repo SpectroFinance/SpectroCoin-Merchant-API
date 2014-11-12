@@ -213,7 +213,7 @@ Spaces must be replaced with "**+**" sign (not "%20"):
 &description=Some+string
 ```
 
-**All** request fields should be included for signature generation even if they dont gave value.
+**All** request fields should be included for signature generation even if they don't have value.
 
 Example URL encoded concatenated parameters:
 ```
