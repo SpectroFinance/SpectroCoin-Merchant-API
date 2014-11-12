@@ -208,9 +208,16 @@ null => 0.0
 1.123 => 1.123
 ```
 
+Spaces must be replaced with "**+**" sign (not "%20"):
+```
+&description=Some+string
+```
+
+**All** request fields should be included for signature generation even if they dont gave value.
+
 Example URL encoded concatenated parameters:
 ```
-merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck
+merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck&successUrl=&failureUrl=
 ```
 
 ## Signing
@@ -221,7 +228,7 @@ Signature must be **Base64 encoded**.
 ### Java signing
 
 ```java
-String formValue = "merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck";
+String formValue = "merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck&successUrl=&failureUrl=";
 Signature ourSign = Signature.getInstance("SHA1withRSA");
 ourSign.initSign(privateKey);
 ourSign.update(formValue.getBytes());
@@ -231,7 +238,7 @@ return new BASE64Encoder().encode(ourSign.sign());
 ### PHP signing
 
 ```php
-$data = "merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck";
+$data = "merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck&successUrl=&failureUrl=";
 // fetch private key from file and ready it
 $private_pem_key = openssl_pkey_get_private($path_to_private_key);
 // compute signature
