@@ -34,7 +34,7 @@
         <h1>
 <a id="spectrocoin-merchant-api" class="anchor" href="#spectrocoin-merchant-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>SpectroCoin Merchant API</h1>
 
-<p>This document describes <a href="https://spectrocoin.com">Spectro Coin</a> merchant service API specification.</p>
+<p>This document describes <a href="https://spectrocoin.com">SpectroCoin</a> merchant service API specification.</p>
 
 <h1>
 <a id="contents" class="anchor" href="#contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contents</h1>
@@ -42,7 +42,6 @@
 <ul>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#api">API</a></li>
-<li><a href="#merchant-key-pair">Merchant key pair</a></li>
 <li><a href="#signature">Signature</a></li>
 <li><a href="#example-applications">Example applications</a></li>
 </ul>
@@ -53,7 +52,7 @@
 <ul>
 <li>Must have a SpectroCoin account (<a href="https://spectrocoin.com/en/signup.html">Sign Up!</a>) to setup and test API. For merchant API usage in production you must approve your account.</li>
 <li>Must <a href="#merchant-key-pair">generate</a> private and public key pairs.</li>
-<li>Must setup merchant API instance on Spectro Coin API configuration page.</li>
+<li>Must setup merchant API instance on SpectroCoin API configuration page.</li>
 </ul>
 
 <h1>
@@ -67,7 +66,7 @@
 <h2>
 <a id="createorder" class="anchor" href="#createorder" aria-hidden="true"><span class="octicon octicon-link"></span></a>/createOrder</h2>
 
-<p>Merchant who wants his customer order to be paid creates order at Spectro Coin with payment details and presents result to his customer. Merchant can also redirect his customer to returned redirect url where customer will be presented with interactive payment window.</p>
+<p>Merchant who wants his customer order to be paid creates order at SpectroCoin with payment details and presents result to his customer. Merchant can also redirect his customer to returned redirect url where customer will be presented with interactive payment window.</p>
 
 <h3>
 <a id="request" class="anchor" href="#request" aria-hidden="true"><span class="octicon octicon-link"></span></a>Request</h3>
@@ -203,7 +202,7 @@ merchantId=169&amp;apiId=1&amp;orderId=Order%20123&amp;payCurrency=BTC&amp;payAm
 <tr>
 <td>orderRequestId</td>
 <td>Long</td>
-<td>Order request id, Spectro Coin Id to track orders</td>
+<td>Order request id, SpectroCoin Id to track orders</td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -264,7 +263,7 @@ merchantId=169&amp;apiId=1&amp;orderId=Order%20123&amp;payCurrency=BTC&amp;payAm
 <a id="callback" class="anchor" href="#callback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Callback</h3>
 
 <p><strong>POST</strong> request to merchant provided order callback url. Request provides information about current order status. Usually there will be several callbacks for a successful order (pending, paid).
-Merchant page must return HTTP Response <strong>200</strong> with content: <strong>*ok*</strong> for Spectro Coin API to confirm callback as sent successfully.</p>
+Merchant page must return HTTP Response <strong>200</strong> with content: <strong>*ok*</strong> for SpectroCoin API to confirm callback as sent successfully.</p>
 
 <p>Complex object <code>OrderCallback</code>.</p>
 
@@ -336,7 +335,7 @@ Merchant page must return HTTP Response <strong>200</strong> with content: <stro
 <td>10.</td>
 <td>orderRequestId</td>
 <td>Long</td>
-<td>Order request id, Spectro Coin Id to track orders</td>
+<td>Order request id, SpectroCoin Id to track orders</td>
 </tr>
 <tr>
 <td>11.</td>
@@ -367,7 +366,7 @@ Merchant page must return HTTP Response <strong>200</strong> with content: <stro
 <tr>
 <td>1</td>
 <td>New</td>
-<td>Start state when order is registered in Spectro Coin system</td>
+<td>Start state when order is registered in SpectroCoin system</td>
 </tr>
 <tr>
 <td>2</td>
@@ -476,17 +475,23 @@ Errors will be returned <strong>JSON</strong> formatted with <strong>203</strong
 </table>
 
 <h1>
-<a id="merchant-key-pair" class="anchor" href="#merchant-key-pair" aria-hidden="true"><span class="octicon octicon-link"></span></a>Merchant key pair</h1>
+<a id="signature" class="anchor" href="#signature" aria-hidden="true"><span class="octicon octicon-link"></span></a>Signature</h1>
 
-<p>You should create key pair (private and public keys) (<a href="http://en.wikipedia.org/wiki/Public-key_cryptography">Wiki</a>) for your requests to be signed and validated by Spectro Coin.
-<strong>Private key</strong> must be kept safely by merchant without any disclosure.
-<strong>Public key</strong> must be inserted into configuration of specific Spectro Coin API (Create/Edit form of API details). This key will be used to check signature validity of any merchant API request signed by specific merchant and API.</p>
+<p>All API requests must be signed using merchant private key so they can be validated by SpectroCoin using merchants public key. Merchant should provide his public key at SpectroCoin merchant API configuration.</p>
+
+<p>Some API request may result in callback from SpectroCoin, such request are also signed by SpectroCoin and must be validated by merchant using <a href="https://spectrocoin.com/files/merchant.public.pem">SpectroCoin Merchant Public Key</a>.</p>
 
 <h2>
-<a id="generate-with-openssl" class="anchor" href="#generate-with-openssl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generate with OpenSSL</h2>
+<a id="merchant-key-pair" class="anchor" href="#merchant-key-pair" aria-hidden="true"><span class="octicon octicon-link"></span></a>Merchant key pair</h2>
+
+<p>You should create key pair (private and public keys) (<a href="http://en.wikipedia.org/wiki/Public-key_cryptography">Wiki</a>) for your requests to be signed and validated by SpectroCoin.</p>
+
+<p><strong>Private key</strong> must be kept safely by merchant without any disclosure.</p>
+
+<p><strong>Public key</strong> must be inserted into configuration of specific SpectroCoin API (Create/Edit form of API details). This key will be used to check signature validity of any merchant API request signed by specific merchant and API.</p>
 
 <h3>
-<a id="private-key-generation" class="anchor" href="#private-key-generation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Private key generation</h3>
+<a id="private-key-generation-with-openssl" class="anchor" href="#private-key-generation-with-openssl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Private key generation with OpenSSL</h3>
 
 <div class="highlight highlight-shell"><pre><span class="pl-c"><span class="pl-pdc">#</span> generate a 2048-bit RSA private key</span>
 openssl genrsa -out <span class="pl-s1"><span class="pl-pds">"</span>C:\private.pem<span class="pl-pds">"</span></span> 2048
@@ -495,17 +500,29 @@ openssl genrsa -out <span class="pl-s1"><span class="pl-pds">"</span>C:\private.
 openssl pkcs8 -topk8 -inform PEM -outform DER -<span class="pl-k">in</span> <span class="pl-s1"><span class="pl-pds">"</span>C:\private.pem<span class="pl-pds">"</span></span> -out <span class="pl-s1"><span class="pl-pds">"</span>C:\private.der<span class="pl-pds">"</span></span> -nocrypt</pre></div>
 
 <h3>
-<a id="public-key-generation" class="anchor" href="#public-key-generation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Public key generation</h3>
+<a id="public-key-generation-with-openssl" class="anchor" href="#public-key-generation-with-openssl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Public key generation with OpenSSL</h3>
 
 <div class="highlight highlight-shell"><pre><span class="pl-c"><span class="pl-pdc">#</span> output public key portion in PEM format</span>
 openssl rsa -<span class="pl-k">in</span> <span class="pl-s1"><span class="pl-pds">"</span>C:\private.pem<span class="pl-pds">"</span></span> -pubout -outform PEM -out <span class="pl-s1"><span class="pl-pds">"</span>C:\public.pem<span class="pl-pds">"</span></span></pre></div>
 
-<h1>
-<a id="signature" class="anchor" href="#signature" aria-hidden="true"><span class="octicon octicon-link"></span></a>Signature</h1>
+<h2>
+<a id="signing-request" class="anchor" href="#signing-request" aria-hidden="true"><span class="octicon octicon-link"></span></a>Signing request</h2>
 
-<p>All API requests must be signed with merchant private key so they can be validated with merchant public key (provided in API configuration). Some API request may result in callback from Spectro Coin, such request are also signed by Spectro Coin and must be validated by merchant using Spectro Coin public key.</p>
+<p>Request to be signed must be converted to <strong>UTF-8 URL encoded concatenated parameters</strong>, consisting of one string line, including parameter names, which are ordered in specific sequence specified in documentation.</p>
 
-<p>Numbers must be formatted with <strong>0.0#######</strong> number format:</p>
+<p>Request data which will be signed must be:</p>
+
+<ul>
+<li>URL encoded</li>
+<li>Spaces must be encoded with "<strong>+</strong>" sign (not "%20"):</li>
+</ul>
+
+<pre><code>&amp;description=Some+string
+</code></pre>
+
+<ul>
+<li>Numbers must be formatted with <strong>0.0#######</strong> number format:</li>
+</ul>
 
 <pre><code>null =&gt; 0.0
 0 =&gt; 0.0
@@ -514,23 +531,20 @@ openssl rsa -<span class="pl-k">in</span> <span class="pl-s1"><span class="pl-pd
 1.123 =&gt; 1.123
 </code></pre>
 
-<p>Spaces must be replaced with "<strong>+</strong>" sign (not "%20"):</p>
+<ul>
+<li>
+<strong>All</strong> request fields should be included for signature generation even if they don't have value set.</li>
+</ul>
 
-<pre><code>&amp;description=Some+string
-</code></pre>
-
-<p><strong>All</strong> request fields should be included for signature generation even if they don't have value.</p>
-
-<p>Example URL encoded concatenated parameters:</p>
+<p>Example request data to be signed:</p>
 
 <pre><code>merchantId=169&amp;apiId=1&amp;orderId=L254S&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveAmount=20.0&amp;description=Some+string+with+symbols+%25%3D%26&amp;callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck&amp;successUrl=&amp;failureUrl=
 </code></pre>
 
-<h2>
-<a id="signing" class="anchor" href="#signing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Signing</h2>
+<p>Signature must be <strong>Base64 encoded</strong>. Example:</p>
 
-<p>Request to be signed must be converted to <strong>UTF-8 URL encoded concatenated parameters</strong> of one string line including parameter names and ordered in specific sequence specified in documentation.
-Signature must be <strong>Base64 encoded</strong>.</p>
+<pre><code>QKpoaBL/P2tcFttFm/TVcn0utkgaOzEAOsZbSSOa+zntcxyJUijaM5egewRoRu68d4CoswTpkdOqaKdGrLWPNqQGujPHIX3q8Q0lK/C8GqN7MYHFrLxu+rpY0G4srIaDzXww4uOTkBIBFWn3TVI4AZAGm0/APlZZeCrhwIIkImYc8ab69zeqikyaMXRK0XMAD/8Fz9b+rUR342hMjFR+epZnNmWQpFtQLvB/SxlCZIZ+u1k2WLJYa7CChDePmdXNHgutvt1mQxLMpJmeDNjD2aOzF9+DPIqsOEkJ9RLJ8F0kQXnn9W02Av/a3GMVC7A/u/kxnKo3LRfkkkAAYkCKug==
+</code></pre>
 
 <h3>
 <a id="java-signing" class="anchor" href="#java-signing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Java signing</h3>
@@ -554,7 +568,7 @@ ourSign<span class="pl-ko">.</span>update(formValue<span class="pl-ko">.</span>g
 <h2>
 <a id="validating-callbacks" class="anchor" href="#validating-callbacks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Validating callbacks</h2>
 
-<p>Requests coming from Spectro Coin to merchant pages are also signed. Merchant must validate signature of the request.
+<p>Requests coming from SpectroCoin to merchant pages are also signed. Merchant must validate signature of the request.
 Request signature to be validated must be <strong>Base64 decoded</strong>.
 Request must be converted to <strong>UTF-8 URL encoded concatenated parameters</strong> of one string line including parameter names and ordered in specific sequence specified in documentation.</p>
 
@@ -581,7 +595,7 @@ verifier<span class="pl-ko">.</span>update(parameters<span class="pl-ko">.</span
 <h1>
 <a id="example-applications" class="anchor" href="#example-applications" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example applications</h1>
 
-<p>There are made several sample SpectroCoin merchant API client applications. You should adapt them for your needs.</p>
+<p>There are several sample SpectroCoin merchant API client applications. You should customize them for your needs.</p>
 
 <h2>
 <a id="java" class="anchor" href="#java" aria-hidden="true"><span class="octicon octicon-link"></span></a>Java</h2>
