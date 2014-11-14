@@ -6,7 +6,6 @@ This document describes [SpectroCoin](https://spectrocoin.com) merchant service 
 
 * [Requirements](#requirements)
 * [API](#api)
-* [Merchant key pair](#merchant-key-pair)
 * [Signature](#signature)
 * [Example applications](#example-applications)
 
@@ -170,15 +169,21 @@ Error code | Error message
 100 | Unexpected error
 
 
-# Merchant key pair
+# Signature
+
+All API requests must be signed using merchant private key so they can be validated by SpectroCoin using merchants public key. Merchant should provide his public key at SpectroCoin merchant API configuration.
+
+Some API request may result in callback from SpectroCoin, such request are also signed by SpectroCoin and must be validated by merchant using [SpectroCoin Merchant Public Key](https://spectrocoin.com/files/merchant.public.pem).
+
+## Merchant key pair
 
 You should create key pair (private and public keys) ([Wiki](http://en.wikipedia.org/wiki/Public-key_cryptography)) for your requests to be signed and validated by SpectroCoin.
+
 **Private key** must be kept safely by merchant without any disclosure.
+
 **Public key** must be inserted into configuration of specific SpectroCoin API (Create/Edit form of API details). This key will be used to check signature validity of any merchant API request signed by specific merchant and API.
 
-## Generate with OpenSSL
-
-### Private key generation
+### Private key generation with OpenSSL
 
 ```shell
 # generate a 2048-bit RSA private key
@@ -188,24 +193,18 @@ openssl genrsa -out "C:\private.pem" 2048
 openssl pkcs8 -topk8 -inform PEM -outform DER -in "C:\private.pem" -out "C:\private.der" -nocrypt
 ```
 
-### Public key generation
+### Public key generation with OpenSSL
 
 ```shell
 # output public key portion in PEM format
 openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
 ```
 
-# Signature
-
-All API requests must be signed using merchant private key so they can be validated by SpectroCoin using merchants public key. Merchant should provide his public key at SpectroCoin merchant API configuration.
-
-Some API request may result in callback from SpectroCoin, such request are also signed by SpectroCoin and must be validated by merchant using [SpectroCoin Merchant Public Key](https://spectrocoin.com/files/merchant.public.pem).
-
 ## Signing request
 
-Request to be signed must be converted to **UTF-8 URL encoded concatenated parameters** of one string line including parameter names, which are ordered in specific sequence specified in documentation.
+Request to be signed must be converted to **UTF-8 URL encoded concatenated parameters**, consisting of one string line, including parameter names, which are ordered in specific sequence specified in documentation.
 
-Data which will be signed must be:
+Request data which will be signed must be:
 
 * URL encoded
 * Spaces must be encoded with "**+**" sign (not "%20"):
@@ -283,7 +282,7 @@ $validity = openssl_verify($data, $responseDecodedSign, $public_key_pem, OPENSSL
 
 # Example applications
 
-There are made several sample SpectroCoin merchant API client applications. You should adapt them for your needs.
+There are several sample SpectroCoin merchant API client applications. You should customize them for your needs.
 
 ## Java
 
