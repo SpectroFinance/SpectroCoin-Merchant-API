@@ -221,7 +221,7 @@ null => 0.0
 ```
 * **All** request fields should be included for signature generation even if they don't have value set.
 
-Example reqeust data to be signed:
+Example request data to be signed:
 ```
 merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck&successUrl=&failureUrl=
 ```
