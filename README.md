@@ -1,6 +1,6 @@
 SpectroCoin Merchant API
 ========================
-This document describes [Spectro Coin](https://spectrocoin.com) merchant service API specification.
+This document describes [SpectroCoin](https://spectrocoin.com) merchant service API specification.
 
 # Contents
 
@@ -14,7 +14,7 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchant service
 
 * Must have a SpectroCoin account ([Sign Up!](https://spectrocoin.com/en/signup.html)) to setup and test API. For merchant API usage in production you must approve your account.
 * Must [generate](#merchant-key-pair) private and public key pairs.
-* Must setup merchant API instance on Spectro Coin API configuration page.
+* Must setup merchant API instance on SpectroCoin API configuration page.
 
 # API
 
@@ -23,7 +23,7 @@ This document describes [Spectro Coin](https://spectrocoin.com) merchant service
 
 ## /createOrder
 
-Merchant who wants his customer order to be paid creates order at Spectro Coin with payment details and presents result to his customer. Merchant can also redirect his customer to returned redirect url where customer will be presented with interactive payment window.
+Merchant who wants his customer order to be paid creates order at SpectroCoin with payment details and presents result to his customer. Merchant can also redirect his customer to returned redirect url where customer will be presented with interactive payment window.
 
 ### Request
 
@@ -66,7 +66,7 @@ merchantId=169&apiId=1&orderId=Order%20123&payCurrency=BTC&payAmount=0.0&receive
 
 Field | Type | Example
 ------|------|--------
-orderRequestId | Long | Order request id, Spectro Coin Id to track orders
+orderRequestId | Long | Order request id, SpectroCoin Id to track orders
 orderId | String | ABC001
 payCurrency | String | BTC
 payAmount | Double | 123.45, 1.23456789 (BTC)
@@ -94,7 +94,7 @@ validUntil | Long | Timestamp (how many milliseconds have passed since January 1
 ### Callback
 
 **POST** request to merchant provided order callback url. Request provides information about current order status. Usually there will be several callbacks for a successful order (pending, paid).
-Merchant page must return HTTP Response **200** with content: **\*ok\*** for Spectro Coin API to confirm callback as sent successfully.
+Merchant page must return HTTP Response **200** with content: **\*ok\*** for SpectroCoin API to confirm callback as sent successfully.
 
 Complex object `OrderCallback`.
 
@@ -109,7 +109,7 @@ Seq No. | Field | Type | Example
 7. | receiveAmount | Double | 123.45, 1.23456789 (BTC)
 8. | receivedAmount | Double | 123.45, 1.23456789 (BTC)
 9. | description | String | Order ABC001 for User 123
-10. | orderRequestId | Long | Order request id, Spectro Coin Id to track orders
+10. | orderRequestId | Long | Order request id, SpectroCoin Id to track orders
 11. | status | Short | Order status
 12. | sign | String | Generated order callback signature
 
@@ -117,7 +117,7 @@ Order status table
 
 Status Code | Order status | Description
 ------------|--------------|------------
-1 | New | Start state when order is registered in Spectro Coin system
+1 | New | Start state when order is registered in SpectroCoin system
 2 | Pending | Payment (or part of it) was received but still not confirmed
 3 | Paid | Order is complete
 4 | Failed | Some error occurred
@@ -172,9 +172,9 @@ Error code | Error message
 
 # Merchant key pair
 
-You should create key pair (private and public keys) ([Wiki](http://en.wikipedia.org/wiki/Public-key_cryptography)) for your requests to be signed and validated by Spectro Coin.
+You should create key pair (private and public keys) ([Wiki](http://en.wikipedia.org/wiki/Public-key_cryptography)) for your requests to be signed and validated by SpectroCoin.
 **Private key** must be kept safely by merchant without any disclosure.
-**Public key** must be inserted into configuration of specific Spectro Coin API (Create/Edit form of API details). This key will be used to check signature validity of any merchant API request signed by specific merchant and API.
+**Public key** must be inserted into configuration of specific SpectroCoin API (Create/Edit form of API details). This key will be used to check signature validity of any merchant API request signed by specific merchant and API.
 
 ## Generate with OpenSSL
 
@@ -197,7 +197,8 @@ openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
 
 # Signature
 
-All API requests must be signed with merchant private key so they can be validated with merchant public key (provided in API configuration). Some API request may result in callback from Spectro Coin, such request are also signed by Spectro Coin and must be validated by merchant using Spectro Coin public key.
+All API requests must be signed with merchant private key so they can be validated with merchant public key. Merchant should provide his public key in SpectroCoin merchant API configuration.
+Some API request may result in callback from SpectroCoin, such request are also signed by SpectroCoin and must be validated by merchant using [SpectroCoin Merchant Public Key](https://spectrocoin.com/files/merchant.public.pem).
 
 Numbers must be formatted with **0.0#######** number format:
 ```
@@ -248,7 +249,7 @@ $encodedSignature = base64_encode($signature);
 
 ## Validating callbacks
 
-Requests coming from Spectro Coin to merchant pages are also signed. Merchant must validate signature of the request.
+Requests coming from SpectroCoin to merchant pages are also signed. Merchant must validate signature of the request.
 Request signature to be validated must be **Base64 decoded**.
 Request must be converted to **UTF-8 URL encoded concatenated parameters** of one string line including parameter names and ordered in specific sequence specified in documentation.
 
