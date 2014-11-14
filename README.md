@@ -197,10 +197,22 @@ openssl rsa -in "C:\private.pem" -pubout -outform PEM -out "C:\public.pem"
 
 # Signature
 
-All API requests must be signed with merchant private key so they can be validated with merchant public key. Merchant should provide his public key in SpectroCoin merchant API configuration.
+All API requests must be signed using merchant private key so they can be validated by SpectroCoin using merchants public key. Merchant should provide his public key at SpectroCoin merchant API configuration.
+
 Some API request may result in callback from SpectroCoin, such request are also signed by SpectroCoin and must be validated by merchant using [SpectroCoin Merchant Public Key](https://spectrocoin.com/files/merchant.public.pem).
 
-Numbers must be formatted with **0.0#######** number format:
+## Signing request
+
+Request to be signed must be converted to **UTF-8 URL encoded concatenated parameters** of one string line including parameter names, which are ordered in specific sequence specified in documentation.
+
+Data which will be signed must be:
+
+* URL encoded
+* Spaces must be encoded with "**+**" sign (not "%20"):
+```
+&description=Some+string
+```
+* Numbers must be formatted with **0.0#######** number format:
 ```
 null => 0.0
 0 => 0.0
@@ -208,23 +220,17 @@ null => 0.0
 1.1 => 1.1
 1.123 => 1.123
 ```
+* **All** request fields should be included for signature generation even if they don't have value set.
 
-Spaces must be replaced with "**+**" sign (not "%20"):
-```
-&description=Some+string
-```
-
-**All** request fields should be included for signature generation even if they don't have value.
-
-Example URL encoded concatenated parameters:
+Example reqeust data to be signed:
 ```
 merchantId=169&apiId=1&orderId=L254S&payCurrency=BTC&payAmount=0.0&receiveAmount=20.0&description=Some+string+with+symbols+%25%3D%26&callbackUrl=http%3A%2F%2Ftestas.lt%2Fapi%2Fcheck&successUrl=&failureUrl=
 ```
 
-## Signing
-
-Request to be signed must be converted to **UTF-8 URL encoded concatenated parameters** of one string line including parameter names and ordered in specific sequence specified in documentation.
-Signature must be **Base64 encoded**.
+Signature must be **Base64 encoded**. Example:
+```
+QKpoaBL/P2tcFttFm/TVcn0utkgaOzEAOsZbSSOa+zntcxyJUijaM5egewRoRu68d4CoswTpkdOqaKdGrLWPNqQGujPHIX3q8Q0lK/C8GqN7MYHFrLxu+rpY0G4srIaDzXww4uOTkBIBFWn3TVI4AZAGm0/APlZZeCrhwIIkImYc8ab69zeqikyaMXRK0XMAD/8Fz9b+rUR342hMjFR+epZnNmWQpFtQLvB/SxlCZIZ+u1k2WLJYa7CChDePmdXNHgutvt1mQxLMpJmeDNjD2aOzF9+DPIqsOEkJ9RLJ8F0kQXnn9W02Av/a3GMVC7A/u/kxnKo3LRfkkkAAYkCKug==
+```
 
 ### Java signing
 
