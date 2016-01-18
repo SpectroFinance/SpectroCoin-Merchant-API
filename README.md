@@ -94,7 +94,7 @@ validUntil | Long | Timestamp (how many milliseconds have passed since January 1
 ### Callback
 
 **POST** request to merchant provided order callback url. Request provides information about current order status. Usually there will be several callbacks for a successful order (pending, paid).
-Merchant page must return HTTP Response **200** with content: **\*ok\*** for SpectroCoin API to confirm callback as sent successfully.
+Merchant page must return HTTP Response **200** with content:** *ok* **for SpectroCoin API to confirm callback as sent successfully.
 
 Complex object `OrderCallback`.
 
