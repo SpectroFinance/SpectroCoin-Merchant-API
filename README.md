@@ -37,7 +37,7 @@ Seq No. | Field | Type | Required | Example
 3. | orderId | String | - | ABC001, **Must be unique** for all merchant API orders. If not provided, order request id will be assigned
 4. | payCurrency | String | + | BTC
 5. | payAmount | Double | + or receiveAmount | 123.45, 1.23456789. Amount merchant clients will pay for order in provided pay currency
-6. | receiveCurrency | String | + | EUR, USD, GBP, SEK, NOK, DKK, PLN, CZK, BGN, GEL, RON, HRK, TRY, CHF
+6. | receiveCurrency | String | + | BTC, EUR, USD, GBP, SEK, NOK, DKK, PLN, CZK, BGN, GEL, RON, HRK, TRY, CHF
 7. | receiveAmount | Double | + or payAmount | 123.45, 1.23456789. Value of provided receive currency which merchant want to receive to configured receive account at merchant API setup window
 8. | description | String | - | Order ABC001 for User 123
 9. | culture | String | - | en, lt, ru. Language for response
