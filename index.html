@@ -1,37 +1,25 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="SpectroCoin Merchant API : ">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>SpectroCoin Merchant API</title>
+    <meta charset="UTF-8">
+    <title>SpectroCoin Merchant API by SpectroFinance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header">
+      <h1 class="project-name">SpectroCoin Merchant API</h1>
+      <h2 class="project-tagline">SpectroCoin Bitcoin Merchant PHP plugin</h2>
+      <a href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API" class="btn">View on GitHub</a>
+      <a href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API">View on GitHub</a>
-
-          <h1 id="project_title">SpectroCoin Merchant API</h1>
-          <h2 id="project_tagline"></h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
+    <section class="main-content">
+      <h1>
 <a id="spectrocoin-merchant-api" class="anchor" href="#spectrocoin-merchant-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SpectroCoin Merchant API</h1>
 
 <p>This document describes <a href="https://spectrocoin.com">SpectroCoin</a> merchant service API specification.</p>
@@ -126,7 +114,7 @@
 <td>receiveCurrency</td>
 <td>String</td>
 <td>+</td>
-<td>BTC, EUR, USD, GBP, SEK, NOK, DKK, PLN, CZK, BGN, GEL, RON, HRK, TRY, CHF</td>
+<td>BTC, EUR, USD, GBP, SEK, NOK, DKK, PLN, CZK, BGN, GEL, RON, HRK, TRY, CHF and other supported</td>
 </tr>
 <tr>
 <td>7.</td>
@@ -144,34 +132,56 @@
 </tr>
 <tr>
 <td>9.</td>
+<td>payerEmail</td>
+<td>String</td>
+<td>-</td>
+<td>
+<a href="mailto:john@spectrocoin.com">john@spectrocoin.com</a> (if API is configured for verified payers only, used to specify who should pay)</td>
+</tr>
+<tr>
+<td>10.</td>
+<td>payerName</td>
+<td>String</td>
+<td>-</td>
+<td>John</td>
+</tr>
+<tr>
+<td>11.</td>
+<td>payerSurname</td>
+<td>String</td>
+<td>-</td>
+<td>Beard</td>
+</tr>
+<tr>
+<td>12.</td>
 <td>culture</td>
 <td>String</td>
 <td>-</td>
 <td>en, lt, ru. Language for response</td>
 </tr>
 <tr>
-<td>10.</td>
+<td>13.</td>
 <td>callbackUrl</td>
 <td>String</td>
 <td>-</td>
 <td><a href="https://merchant.com/orderCallback?user=123">https://merchant.com/orderCallback?user=123</a></td>
 </tr>
 <tr>
-<td>11.</td>
+<td>14.</td>
 <td>successUrl</td>
 <td>String</td>
 <td>-</td>
 <td><a href="https://merchant.com/success?user=123">https://merchant.com/success?user=123</a></td>
 </tr>
 <tr>
-<td>12.</td>
+<td>15.</td>
 <td>failureUrl</td>
 <td>String</td>
 <td>-</td>
 <td><a href="https://merchant.com/failure?user=123">https://merchant.com/failure?user=123</a></td>
 </tr>
 <tr>
-<td>13.</td>
+<td>16.</td>
 <td>sign</td>
 <td>String</td>
 <td>+</td>
@@ -189,7 +199,7 @@
 <span class="pl-s"><span class="pl-v">Connection:</span> Keep-Alive</span>
 <span class="pl-s"><span class="pl-v">Accept-Encoding:</span> gzip,deflate</span>
 
-merchantId<span class="pl-c1">=</span><span class="pl-c1">87</span><span class="pl-c1">&amp;</span><span class="pl-c1">apiId</span><span class="pl-c1">=</span><span class="pl-c1">1</span><span class="pl-c1">&amp;</span><span class="pl-c1">orderId</span><span class="pl-c1">=</span><span class="pl-c1">&amp;</span><span class="pl-c1">payCurrency</span><span class="pl-c1">=</span><span class="pl-c1">BTC</span><span class="pl-c1">&amp;</span><span class="pl-c1">payAmount</span><span class="pl-c1">=</span><span class="pl-c1">0.0</span><span class="pl-c1">&amp;</span><span class="pl-c1">receiveCurrency</span><span class="pl-c1">=</span><span class="pl-c1">USD</span><span class="pl-c1">&amp;</span><span class="pl-c1">receiveAmount</span><span class="pl-c1">=</span><span class="pl-c1">15.99</span><span class="pl-c1">&amp;</span><span class="pl-c1">description</span><span class="pl-c1">=</span><span class="pl-c1">Payment+for+Order-2547</span><span class="pl-c1">&amp;</span><span class="pl-c1">culture</span><span class="pl-c1">=</span><span class="pl-c1">&amp;</span><span class="pl-c1">callbackUrl</span><span class="pl-c1">=</span><span class="pl-c1">https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123</span><span class="pl-c1">&amp;</span><span class="pl-c1">successUrl</span><span class="pl-c1">=</span><span class="pl-c1">https%3A%2F%2Fmerchant.com%2Fsucess%3Fuser%3D123</span><span class="pl-c1">&amp;</span><span class="pl-c1">failureUrl</span><span class="pl-c1">=</span><span class="pl-c1">https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123</span><span class="pl-c1">&amp;</span><span class="pl-c1">sign</span><span class="pl-c1">=</span><span class="pl-c1">SHlHIo3Q%2FKs7GE08jbp3WNKMq5h%2BJDOaSU%2BOfLq1bdXbA9cF5TrBhM32%2B%2BeiF%2FXLnITYzX8n0TSvWDYKj5ItJXi7Dg7PoU9FtIEUaPIMHx681PhgMh1fNBQVyzn9wOj%2BbVNcEpIzIeziTIkXZbdC%2FDvMlIN85n7jU%2FRhe8INeQxaEWtggkuvkpW34D9fy0syn3lsBn5ev6J09huy2PuOT4qAY28NpIXxhq9WdKJBTp%2FhZv7QAVmq9qcNexOlgd3P1GSlBvMpuF7HoliNC7EKRL%2B5bp8f1P8S0ecqYrc0SFmtQOhhFU%2BkvcEdOi3oA6xgKxgc28CeXGfHXO%2F1BEDnbg%3D%3D</span></pre></div>
+merchantId<span class="pl-c1">=</span><span class="pl-c1">87</span><span class="pl-c1">&amp;</span><span class="pl-c1">apiId</span><span class="pl-c1">=</span><span class="pl-c1">1</span><span class="pl-c1">&amp;</span><span class="pl-c1">orderId</span><span class="pl-c1">=</span><span class="pl-c1">&amp;</span><span class="pl-c1">payCurrency</span><span class="pl-c1">=</span><span class="pl-c1">BTC</span><span class="pl-c1">&amp;</span><span class="pl-c1">payAmount</span><span class="pl-c1">=</span><span class="pl-c1">0.0</span><span class="pl-c1">&amp;</span><span class="pl-c1">receiveCurrency</span><span class="pl-c1">=</span><span class="pl-c1">USD</span><span class="pl-c1">&amp;</span><span class="pl-c1">receiveAmount</span><span class="pl-c1">=</span><span class="pl-c1">15.99</span><span class="pl-c1">&amp;</span><span class="pl-c1">description</span><span class="pl-c1">=</span><span class="pl-c1">Payment+for+Order-2547</span><span class="pl-c1">&amp;</span><span class="pl-c1">payerEmail</span><span class="pl-c1">=</span><span class="pl-c1">&amp;</span><span class="pl-c1">payerName</span><span class="pl-c1">=</span><span class="pl-c1">&amp;</span><span class="pl-c1">payerSurname</span><span class="pl-c1">=</span><span class="pl-c1">&amp;</span><span class="pl-c1">culture</span><span class="pl-c1">=</span><span class="pl-c1">&amp;</span><span class="pl-c1">callbackUrl</span><span class="pl-c1">=</span><span class="pl-c1">https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123</span><span class="pl-c1">&amp;</span><span class="pl-c1">successUrl</span><span class="pl-c1">=</span><span class="pl-c1">https%3A%2F%2Fmerchant.com%2Fsuccess%3Fuser%3D123</span><span class="pl-c1">&amp;</span><span class="pl-c1">failureUrl</span><span class="pl-c1">=</span><span class="pl-c1">https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123</span><span class="pl-c1">&amp;</span><span class="pl-c1">sign</span><span class="pl-c1">=</span><span class="pl-c1">J1lDaNzp7FI%2BkjjDbjHgZ8CUfGJBxoacfTYmNGPG05GCuKQ18erfzookLSapgiUXHz3hzXt3%2FhW4tY5vsYCh6PY7IUgdNC8VjlaNMqtUclMEFc%2Bp1bt%2FttKYYJV35eE9hhiFF7qwQuMEzkrcJKfTmy5uB%2FK07vJBfjP8FHu4ap3kR1XjYYgZgE%2BhrtwKxaWTYZNigt8Y6phlYcaqZPiiUVYInIYov1%2Bahy9pozMXjpYlIMWtEDI8AEYNz8HE%2BYfs1vTUnUDwM72hwRarhpCSz4fKRee%2FNwqq6ZvnXWWKosInzuUynmvHcF8bDjJkxkg72t4BOWBxBrmi4rOYqdQH9A%3D%3D</span></pre></div>
 
 <h3>
 <a id="response" class="anchor" href="#response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Response</h3>
@@ -551,18 +561,18 @@ openssl rsa -in <span class="pl-s"><span class="pl-pds">"</span>C:\private.pem<s
 
 <p>Example request data to be signed:</p>
 
-<pre><code>merchantId=25&amp;apiId=74&amp;orderId=NO-2514&amp;payCurrency=BTC&amp;payAmount=20.0&amp;receiveCurrency=EUR&amp;receiveAmount=0.0&amp;description=Super+payment&amp;culture=&amp;callbackUrl=http%3A%2F%2FmySite.com%2Fcallback&amp;successUrl=&amp;failureUrl=
+<pre><code>merchantId=87&amp;apiId=1&amp;orderId=&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveCurrency=USD&amp;receiveAmount=15.99&amp;description=Payment+for+Order-2547&amp;payerEmail=&amp;payerName=&amp;payerSurname=&amp;culture=&amp;callbackUrl=https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123&amp;successUrl=https%3A%2F%2Fmerchant.com%2Fsuccess%3Fuser%3D123&amp;failureUrl=https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123
 </code></pre>
 
 <p>Signature must be <strong>Base64 encoded</strong>. Example:</p>
 
-<pre><code>QKpoaBL/P2tcFttFm/TVcn0utkgaOzEAOsZbSSOa+zntcxyJUijaM5egewRoRu68d4CoswTpkdOqaKdGrLWPNqQGujPHIX3q8Q0lK/C8GqN7MYHFrLxu+rpY0G4srIaDzXww4uOTkBIBFWn3TVI4AZAGm0/APlZZeCrhwIIkImYc8ab69zeqikyaMXRK0XMAD/8Fz9b+rUR342hMjFR+epZnNmWQpFtQLvB/SxlCZIZ+u1k2WLJYa7CChDePmdXNHgutvt1mQxLMpJmeDNjD2aOzF9+DPIqsOEkJ9RLJ8F0kQXnn9W02Av/a3GMVC7A/u/kxnKo3LRfkkkAAYkCKug==
+<pre><code>J1lDaNzp7FI+kjjDbjHgZ8CUfGJBxoacfTYmNGPG05GCuKQ18erfzookLSapgiUXHz3hzXt3/hW4tY5vsYCh6PY7IUgdNC8VjlaNMqtUclMEFc+p1bt/ttKYYJV35eE9hhiFF7qwQuMEzkrcJKfTmy5uB/K07vJBfjP8FHu4ap3kR1XjYYgZgE+hrtwKxaWTYZNigt8Y6phlYcaqZPiiUVYInIYov1+ahy9pozMXjpYlIMWtEDI8AEYNz8HE+Yfs1vTUnUDwM72hwRarhpCSz4fKRee/Nwqq6ZvnXWWKosInzuUynmvHcF8bDjJkxkg72t4BOWBxBrmi4rOYqdQH9A==
 </code></pre>
 
 <h3>
 <a id="java-signing" class="anchor" href="#java-signing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Java signing</h3>
 
-<div class="highlight highlight-source-java"><pre><span class="pl-smi">String</span> formValue <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>merchantId=25&amp;apiId=74&amp;orderId=NO-2514&amp;payCurrency=BTC&amp;payAmount=20.0&amp;receiveCurrency=EUR&amp;receiveAmount=0.0&amp;description=Super+payment&amp;culture=&amp;callbackUrl=http%3A%2F%2FmySite.com%2Fcallback&amp;successUrl=&amp;failureUrl=<span class="pl-pds">"</span></span>;
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">String</span> formValue <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>merchantId=87&amp;apiId=1&amp;orderId=&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveCurrency=USD&amp;receiveAmount=15.99&amp;description=Payment+for+Order-2547&amp;payerEmail=&amp;payerName=&amp;payerSurname=&amp;culture=&amp;callbackUrl=https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123&amp;successUrl=https%3A%2F%2Fmerchant.com%2Fsuccess%3Fuser%3D123&amp;failureUrl=https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123<span class="pl-pds">"</span></span>;
 <span class="pl-smi">Signature</span> ourSign <span class="pl-k">=</span> <span class="pl-smi">Signature</span><span class="pl-k">.</span>getInstance(<span class="pl-s"><span class="pl-pds">"</span>SHA1withRSA<span class="pl-pds">"</span></span>);
 ourSign<span class="pl-k">.</span>initSign(privateKey);
 ourSign<span class="pl-k">.</span>update(formValue<span class="pl-k">.</span>getBytes());
@@ -571,7 +581,7 @@ ourSign<span class="pl-k">.</span>update(formValue<span class="pl-k">.</span>get
 <h3>
 <a id="php-signing" class="anchor" href="#php-signing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PHP signing</h3>
 
-<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$data</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>merchantId=25&amp;apiId=74&amp;orderId=NO-2514&amp;payCurrency=BTC&amp;payAmount=20.0&amp;receiveCurrency=EUR&amp;receiveAmount=0.0&amp;description=Super+payment&amp;culture=&amp;callbackUrl=http%3A%2F%2FmySite.com%2Fcallback&amp;successUrl=&amp;failureUrl=<span class="pl-pds">"</span></span>;</span>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$data</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>merchantId=87&amp;apiId=1&amp;orderId=&amp;payCurrency=BTC&amp;payAmount=0.0&amp;receiveCurrency=USD&amp;receiveAmount=15.99&amp;description=Payment+for+Order-2547&amp;payerEmail=&amp;payerName=&amp;payerSurname=&amp;culture=&amp;callbackUrl=https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123&amp;successUrl=https%3A%2F%2Fmerchant.com%2Fsuccess%3Fuser%3D123&amp;failureUrl=https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123<span class="pl-pds">"</span></span>;</span>
 <span class="pl-s1"><span class="pl-c">// fetch private key from file and ready it</span></span>
 <span class="pl-s1"><span class="pl-smi">$private_pem_key</span> <span class="pl-k">=</span> <span class="pl-c1">openssl_pkey_get_private</span>(<span class="pl-smi">$path_to_private_key</span>);</span>
 <span class="pl-s1"><span class="pl-c">// compute signature</span></span>
@@ -619,18 +629,16 @@ verifier<span class="pl-k">.</span>update(parameters<span class="pl-k">.</span>g
 <a id="php" class="anchor" href="#php" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PHP</h2>
 
 <p>Sample PHP application could be found <a href="https://github.com/SpectroFinance/SpectroCoin-Merchant-PHP">here</a>.</p>
-      </section>
-    </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">SpectroCoin Merchant API maintained by <a href="https://github.com/SpectroFinance">SpectroFinance</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/SpectroFinance/SpectroCoin-Merchant-API">SpectroCoin Merchant API</a> is maintained by <a href="https://github.com/SpectroFinance">SpectroFinance</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
 
-              <script type="text/javascript">
+    </section>
+
+            <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -640,7 +648,6 @@ verifier<span class="pl-k">.</span>update(parameters<span class="pl-k">.</span>g
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
-
 
   </body>
 </html>
