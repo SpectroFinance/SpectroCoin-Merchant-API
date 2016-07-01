@@ -37,14 +37,17 @@ Seq No. | Field | Type | Required | Example
 3. | orderId | String | - | ABC001, **Must be unique** for all merchant API orders. If not provided, order request id will be assigned
 4. | payCurrency | String | + | BTC
 5. | payAmount | Double | + or receiveAmount | 123.45, 1.23456789. Amount merchant clients will pay for order in provided pay currency
-6. | receiveCurrency | String | + | BTC, EUR, USD, GBP, SEK, NOK, DKK, PLN, CZK, BGN, GEL, RON, HRK, TRY, CHF
+6. | receiveCurrency | String | + | BTC, EUR, USD, GBP, SEK, NOK, DKK, PLN, CZK, BGN, GEL, RON, HRK, TRY, CHF and other supported
 7. | receiveAmount | Double | + or payAmount | 123.45, 1.23456789. Value of provided receive currency which merchant want to receive to configured receive account at merchant API setup window
 8. | description | String | - | Order ABC001 for User 123
-9. | culture | String | - | en, lt, ru. Language for response
-10. | callbackUrl | String | - | https://merchant.com/orderCallback?user=123
-11. | successUrl | String | - | https://merchant.com/success?user=123
-12. | failureUrl | String | - | https://merchant.com/failure?user=123
-13. | sign | String | + | Generated order request signature
+9. | payerEmail | String | - | john@spectrocoin.com (if API is configured for verified payers only, used to specify who should pay)
+10. | payerName | String | - | John
+11. | payerSurname | String | - | Beard
+12. | culture | String | - | en, lt, ru. Language for response
+13. | callbackUrl | String | - | https://merchant.com/orderCallback?user=123
+14. | successUrl | String | - | https://merchant.com/success?user=123
+15. | failureUrl | String | - | https://merchant.com/failure?user=123
+16. | sign | String | + | Generated order request signature
 
 
 Example HTTP request:
@@ -57,7 +60,7 @@ Host: spectrocoin.com
 Connection: Keep-Alive
 Accept-Encoding: gzip,deflate
 
-merchantId=87&apiId=1&orderId=&payCurrency=BTC&payAmount=0.0&receiveCurrency=USD&receiveAmount=15.99&description=Payment+for+Order-2547&culture=&callbackUrl=https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123&successUrl=https%3A%2F%2Fmerchant.com%2Fsucess%3Fuser%3D123&failureUrl=https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123&sign=SHlHIo3Q%2FKs7GE08jbp3WNKMq5h%2BJDOaSU%2BOfLq1bdXbA9cF5TrBhM32%2B%2BeiF%2FXLnITYzX8n0TSvWDYKj5ItJXi7Dg7PoU9FtIEUaPIMHx681PhgMh1fNBQVyzn9wOj%2BbVNcEpIzIeziTIkXZbdC%2FDvMlIN85n7jU%2FRhe8INeQxaEWtggkuvkpW34D9fy0syn3lsBn5ev6J09huy2PuOT4qAY28NpIXxhq9WdKJBTp%2FhZv7QAVmq9qcNexOlgd3P1GSlBvMpuF7HoliNC7EKRL%2B5bp8f1P8S0ecqYrc0SFmtQOhhFU%2BkvcEdOi3oA6xgKxgc28CeXGfHXO%2F1BEDnbg%3D%3D
+merchantId=87&apiId=1&orderId=&payCurrency=BTC&payAmount=0.0&receiveCurrency=USD&receiveAmount=15.99&description=Payment+for+Order-2547&payerEmail=&payerName=&payerSurname=&culture=&callbackUrl=https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123&successUrl=https%3A%2F%2Fmerchant.com%2Fsuccess%3Fuser%3D123&failureUrl=https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123&sign=J1lDaNzp7FI%2BkjjDbjHgZ8CUfGJBxoacfTYmNGPG05GCuKQ18erfzookLSapgiUXHz3hzXt3%2FhW4tY5vsYCh6PY7IUgdNC8VjlaNMqtUclMEFc%2Bp1bt%2FttKYYJV35eE9hhiFF7qwQuMEzkrcJKfTmy5uB%2FK07vJBfjP8FHu4ap3kR1XjYYgZgE%2BhrtwKxaWTYZNigt8Y6phlYcaqZPiiUVYInIYov1%2Bahy9pozMXjpYlIMWtEDI8AEYNz8HE%2BYfs1vTUnUDwM72hwRarhpCSz4fKRee%2FNwqq6ZvnXWWKosInzuUynmvHcF8bDjJkxkg72t4BOWBxBrmi4rOYqdQH9A%3D%3D
 ```
 
 ### Response
@@ -231,18 +234,18 @@ null => 0.0
 
 Example request data to be signed:
 ```
-merchantId=25&apiId=74&orderId=NO-2514&payCurrency=BTC&payAmount=20.0&receiveCurrency=EUR&receiveAmount=0.0&description=Super+payment&culture=&callbackUrl=http%3A%2F%2FmySite.com%2Fcallback&successUrl=&failureUrl=
+merchantId=87&apiId=1&orderId=&payCurrency=BTC&payAmount=0.0&receiveCurrency=USD&receiveAmount=15.99&description=Payment+for+Order-2547&payerEmail=&payerName=&payerSurname=&culture=&callbackUrl=https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123&successUrl=https%3A%2F%2Fmerchant.com%2Fsuccess%3Fuser%3D123&failureUrl=https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123
 ```
 
 Signature must be **Base64 encoded**. Example:
 ```
-QKpoaBL/P2tcFttFm/TVcn0utkgaOzEAOsZbSSOa+zntcxyJUijaM5egewRoRu68d4CoswTpkdOqaKdGrLWPNqQGujPHIX3q8Q0lK/C8GqN7MYHFrLxu+rpY0G4srIaDzXww4uOTkBIBFWn3TVI4AZAGm0/APlZZeCrhwIIkImYc8ab69zeqikyaMXRK0XMAD/8Fz9b+rUR342hMjFR+epZnNmWQpFtQLvB/SxlCZIZ+u1k2WLJYa7CChDePmdXNHgutvt1mQxLMpJmeDNjD2aOzF9+DPIqsOEkJ9RLJ8F0kQXnn9W02Av/a3GMVC7A/u/kxnKo3LRfkkkAAYkCKug==
+J1lDaNzp7FI+kjjDbjHgZ8CUfGJBxoacfTYmNGPG05GCuKQ18erfzookLSapgiUXHz3hzXt3/hW4tY5vsYCh6PY7IUgdNC8VjlaNMqtUclMEFc+p1bt/ttKYYJV35eE9hhiFF7qwQuMEzkrcJKfTmy5uB/K07vJBfjP8FHu4ap3kR1XjYYgZgE+hrtwKxaWTYZNigt8Y6phlYcaqZPiiUVYInIYov1+ahy9pozMXjpYlIMWtEDI8AEYNz8HE+Yfs1vTUnUDwM72hwRarhpCSz4fKRee/Nwqq6ZvnXWWKosInzuUynmvHcF8bDjJkxkg72t4BOWBxBrmi4rOYqdQH9A==
 ```
 
 ### Java signing
 
 ```java
-String formValue = "merchantId=25&apiId=74&orderId=NO-2514&payCurrency=BTC&payAmount=20.0&receiveCurrency=EUR&receiveAmount=0.0&description=Super+payment&culture=&callbackUrl=http%3A%2F%2FmySite.com%2Fcallback&successUrl=&failureUrl=";
+String formValue = "merchantId=87&apiId=1&orderId=&payCurrency=BTC&payAmount=0.0&receiveCurrency=USD&receiveAmount=15.99&description=Payment+for+Order-2547&payerEmail=&payerName=&payerSurname=&culture=&callbackUrl=https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123&successUrl=https%3A%2F%2Fmerchant.com%2Fsuccess%3Fuser%3D123&failureUrl=https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123";
 Signature ourSign = Signature.getInstance("SHA1withRSA");
 ourSign.initSign(privateKey);
 ourSign.update(formValue.getBytes());
@@ -252,7 +255,7 @@ return new BASE64Encoder().encode(ourSign.sign());
 ### PHP signing
 
 ```php
-$data = "merchantId=25&apiId=74&orderId=NO-2514&payCurrency=BTC&payAmount=20.0&receiveCurrency=EUR&receiveAmount=0.0&description=Super+payment&culture=&callbackUrl=http%3A%2F%2FmySite.com%2Fcallback&successUrl=&failureUrl=";
+$data = "merchantId=87&apiId=1&orderId=&payCurrency=BTC&payAmount=0.0&receiveCurrency=USD&receiveAmount=15.99&description=Payment+for+Order-2547&payerEmail=&payerName=&payerSurname=&culture=&callbackUrl=https%3A%2F%2Fmerchant.com%2Fcallback%3Fuser%3D123&successUrl=https%3A%2F%2Fmerchant.com%2Fsuccess%3Fuser%3D123&failureUrl=https%3A%2F%2Fmerchant.com%2Ffailure%3Fuser%3D123";
 // fetch private key from file and ready it
 $private_pem_key = openssl_pkey_get_private($path_to_private_key);
 // compute signature
