@@ -297,8 +297,8 @@ There are several sample SpectroCoin merchant API client applications. You shoul
 
 ## Java
 
-Sample Java application could be found [here](https://github.com/SpectroFinance/SpectroCoin-Merchant-Java).
+Sample SpectroCoin Merchant Java application could be found [here](https://github.com/SpectroFinance/SpectroCoin-Merchant-Java).
 
 ## PHP
 
-Sample PHP application could be found [here](https://github.com/SpectroFinance/SpectroCoin-Merchant-PHP).
+Sample SpectroCoin Merchant PHP application could be found [here](https://github.com/SpectroFinance/SpectroCoin-Merchant-PHP).
