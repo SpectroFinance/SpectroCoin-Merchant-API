@@ -86,7 +86,7 @@ validUntil | Long | Timestamp (how many milliseconds have passed since January 1
 "orderId":"18",
 "orderRequestId":18,
 "payAmount":0.00246995,
-"payCurrency":"BTC",
+"payCurrency":BTC",
 "receiveAmount":1.0,
 "receiveCurrency":"EUR",
 "redirectUrl":"https://spectrocoin.com/en/pay/order/18-5fD2HgMK.html",
@@ -106,7 +106,7 @@ Seq No. | Field | Type | Example
 1. | merchantId | Long | 12345
 2. | apiId | Long | 1
 3. | orderId | String | ABC001
-4. | payCurrency | String | BTC
+4. | payCurrency | String | BTCREADME.md
 5. | payAmount | Double | 123.45, 1.23456789 (BTC)
 6. | receiveCurrency | String | BTC, EUR, ...
 7. | receiveAmount | Double | 123.45, 1.23456789 (BTC)
