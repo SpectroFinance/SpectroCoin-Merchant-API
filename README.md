@@ -75,14 +75,14 @@ payCurrency | String | BTC
 payAmount | Double | 123.45, 1.23456789 (BTC)
 receiveCurrency | String | BTC, EUR, ...
 receiveAmount | Double | 123.45, 1.23456789 (BTC)
-depositAddress | String | 1HZcE7ZbwnEKHYcKkva1uZoxZbFvRyK3fm
+depositAddress | String | 1LY6ui1AgYZkEuZ9763uypG7c4C2LPEvvL
 redirectUrl | String | https://spectrocoin.com/en/pay/order/18-5fD2HgMK.html
 validUntil | Long | Timestamp (how many milliseconds have passed since January 1, 1970, 00:00:00 GMT) until order is valid.
 
 
 ```json
 {
-"depositAddress":"1HZcE7ZbwnEKHYcKkva1uZoxZbFvRyK3fm",
+"depositAddress":"1LY6ui1AgYZkEuZ9763uypG7c4C2LPEvvL",
 "orderId":"18",
 "orderRequestId":18,
 "payAmount":0.00246995,
